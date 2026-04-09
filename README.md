@@ -49,7 +49,7 @@ CodeTrace-AI/
 │   ├── commands/               # Reusable command entry points
 │   ├── docs/                   # Internal Codex orchestration and planning docs
 │   ├── memory/                 # Stable workflow memory
-│   ├── Modules/                # Pipeline or module bundles
+│   ├── modules/                # Pipeline or module bundles
 │   ├── rules/                  # Repository rules for AI workflows
 │   └── skills/                 # Task-specific generation skills
 ├── docs/

@@ -204,7 +204,7 @@ Memory 是长期上下文。它负责“跨多轮保留哪些项目共识”。
 ├── commands/
 ├── docs/
 ├── memory/
-├── Modules/
+├── modules/
 ├── rules/
 └── skills/
 ```
@@ -215,7 +215,7 @@ Memory 是长期上下文。它负责“跨多轮保留哪些项目共识”。
 - `commands/`: 用户可直接触发的任务入口
 - `docs/`: Codex 内部编排与计划文档
 - `memory/`: 跨轮共享的项目记忆
-- `Modules/`: 可继续扩展的 pipeline 或模块化 bundle
+- `modules/`: 可继续扩展的 pipeline 或模块化 bundle
 - `rules/`: 仓库级约束
 - `skills/`: 具体任务能力包
 

@@ -49,7 +49,7 @@ CodeTrace-AI/
 │   ├── commands/               # 可复用 command 入口
 │   ├── docs/                   # Codex 内部编排与计划文档
 │   ├── memory/                 # 稳定 workflow memory
-│   ├── Modules/                # Pipeline 或模块化 bundle
+│   ├── modules/                # Pipeline 或模块化 bundle
 │   ├── rules/                  # AI 工作流规则
 │   └── skills/                 # 任务型生成技能
 ├── docs/
