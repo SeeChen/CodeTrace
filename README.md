@@ -14,6 +14,7 @@ CodeTrace-AI explores innovative development methodologies where AI agents colla
 
 - [Product Requirements Document (PRD)](docs/PRD.md)
 - [AI Development Workflow](docs/Workflow.md)
+- [PRD to Coding Orchestration](docs/PRD-to-Coding-Orchestration.md)
 
 ## Getting Started
 
