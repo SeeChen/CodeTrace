@@ -15,8 +15,8 @@ CodeTrace-AI explores a modular workflow in which AI agents collaborate through 
 
 - [Product Requirements Document (PRD)](docs/PRD.md)
 - [AI Development Workflow](docs/Workflow.md)
-- [PRD to Coding Orchestration](docs/PRD-to-Coding-Orchestration.md)
-- [Document System Todo Plan](docs/todo-plan.md)
+- [PRD to Coding Orchestration](.codex/docs/PRD-to-Coding-Orchestration.md)
+- [Document System Todo Plan](.codex/docs/todo-plan.md)
 
 ## Getting Started
 
@@ -31,8 +31,8 @@ This repository is designed for AI-assisted development where the document syste
 ### Usage
 
 1. Read the [PRD](docs/PRD.md) and [Workflow](docs/Workflow.md).
-2. Use the planning and orchestration documents in `docs/` to understand the intended document pipeline.
-3. Use the reusable assets under `.qoder/`:
+2. Use `docs/PRD.md`, `docs/Workflow.md`, and `.codex/docs/` together to understand the intended document pipeline.
+3. Use the reusable assets under `.codex/`:
    - `agents/` for system-prompt roles
    - `skills/` for task-specific generation workflows
    - `commands/` for reusable task entry points
@@ -44,19 +44,17 @@ This repository is designed for AI-assisted development where the document syste
 
 ```
 CodeTrace-AI/
-├── .github/
-│   └── rules/                  # Repository rules mirrored for GitHub-side workflow control
-├── .qoder/
+├── .codex/
 │   ├── agents/                 # Reusable agent system prompts
 │   ├── commands/               # Reusable command entry points
+│   ├── docs/                   # Internal Codex orchestration and planning docs
 │   ├── memory/                 # Stable workflow memory
+│   ├── Modules/                # Pipeline or module bundles
 │   ├── rules/                  # Repository rules for AI workflows
 │   └── skills/                 # Task-specific generation skills
 ├── docs/
 │   ├── PRD.md                          # Product Requirements Document
 │   ├── Workflow.md                     # High-level workflow reference
-│   ├── PRD-to-Coding-Orchestration.md  # Document orchestration design
-│   └── todo-plan.md                    # Progress tracker for document-system setup
 ├── LICENSE
 └── README.md
 ```
@@ -79,7 +77,7 @@ Implementation code generation is intentionally downstream from these document p
 
 Contributions should preserve the AI-first workflow. Please:
 
-1. Follow the rules in `.github/rules/` and `.qoder/rules/`.
+1. Follow the rules in `.codex/rules/`.
 2. Keep reusable system-constraint files in English unless there is a documented exception.
 3. Use a task-appropriate branch instead of reusing an unrelated branch.
 4. Update progress-tracking documents when document-generation work is completed.
@@ -92,3 +90,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Inspired by modular AI-assisted development practices
 - Built to demonstrate how PRD-driven document systems can structure later coding work
+
