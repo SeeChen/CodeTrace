@@ -15,8 +15,8 @@ CodeTrace-AI explores a modular workflow in which AI agents collaborate through 
 
 - [Product Requirements Document (PRD)](docs/PRD.md)
 - [AI Development Workflow](docs/Workflow.md)
-- [PRD to Coding Orchestration](.codex/docs/PRD-to-Coding-Orchestration.md)
-- [Document System Todo Plan](.codex/docs/todo-plan.md)
+- [PRD to Coding Orchestration](.codex/modules/PRD-Pipeline/docs/PRD-to-Coding-Orchestration.md)
+- [Document System Todo Plan](.codex/modules/PRD-Pipeline/docs/todo-plan.md)
 
 ## Getting Started
 
@@ -31,13 +31,14 @@ This repository is designed for AI-assisted development where the document syste
 ### Usage
 
 1. Read the [PRD](docs/PRD.md) and [Workflow](docs/Workflow.md).
-2. Use `docs/PRD.md`, `docs/Workflow.md`, and `.codex/docs/` together to understand the intended document pipeline.
-3. Use the reusable assets under `.codex/`:
+2. Use `docs/PRD.md`, `docs/Workflow.md`, and `.codex/modules/PRD-Pipeline/docs/` together to understand the intended document pipeline.
+3. Use the reusable assets under `.codex/modules/PRD-Pipeline/`:
    - `agents/` for system-prompt roles
    - `skills/` for task-specific generation workflows
    - `commands/` for reusable task entry points
    - `rules/` for repository constraints
    - `memory/` for stable project context
+   - `docs/` for internal orchestration and planning documents
 4. Generate `specs/ref/`, `specs/global/`, `specs/domains/`, `specs/testing/`, and `specs/acceptance/` in stages.
 
 ## Project Structure
@@ -45,13 +46,14 @@ This repository is designed for AI-assisted development where the document syste
 ```
 CodeTrace-AI/
 ├── .codex/
-│   ├── agents/                 # Reusable agent system prompts
-│   ├── commands/               # Reusable command entry points
-│   ├── docs/                   # Internal Codex orchestration and planning docs
-│   ├── memory/                 # Stable workflow memory
-│   ├── modules/                # Pipeline or module bundles
-│   ├── rules/                  # Repository rules for AI workflows
-│   └── skills/                 # Task-specific generation skills
+│   └── modules/
+│       └── PRD-Pipeline/
+│           ├── agents/
+│           ├── commands/
+│           ├── docs/
+│           ├── memory/
+│           ├── rules/
+│           └── skills/
 ├── docs/
 │   ├── PRD.md                          # Product Requirements Document
 │   ├── Workflow.md                     # High-level workflow reference
@@ -77,7 +79,7 @@ Implementation code generation is intentionally downstream from these document p
 
 Contributions should preserve the AI-first workflow. Please:
 
-1. Follow the rules in `.codex/rules/`.
+1. Follow the rules in `.codex/modules/PRD-Pipeline/rules/`.
 2. Keep reusable system-constraint files in English unless there is a documented exception.
 3. Use a task-appropriate branch instead of reusing an unrelated branch.
 4. Update progress-tracking documents when document-generation work is completed.
@@ -90,4 +92,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Inspired by modular AI-assisted development practices
 - Built to demonstrate how PRD-driven document systems can structure later coding work
+
 
