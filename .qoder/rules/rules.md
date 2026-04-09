@@ -6,6 +6,7 @@ This document serves as an index for all workflow rules in the CodeTrace-AI proj
 
 - [Workflow](workflow.md) - Core Git workflow steps
 - [Branch Protection](branch.md) - Branch protection and management
+- [Branch Selection](branch-selection.md) - Choose a suitable task branch before starting work
 - [Commit Guidelines](commit.md) - Commit message format and standards
 - [AI Development](ai.md) - Special considerations for AI assistance
 - [Agent Doc Size](agent-doc-size.md) - Keep agent markdown files concise and move details to docs
