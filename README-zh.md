@@ -1,53 +1,89 @@
 # CodeTrace-AI
 
-一个使用 Prompt 和规范驱动开发（SDD）模式的 AI 驱动开发演示项目。本仓库展示了如何通过结构化的提示和规范来构建软件，而无需传统的编码工作流程。
+这是一个以 AI 为核心的开发仓库，目标是通过 PRD 驱动的文档体系、可复用的系统约束以及分阶段规格生成来构建软件。项目重点是把单一 PRD 逐步转化为可以驱动 Coding、Testing 与 Acceptance 的文档系统。
 
 ## 概述
 
-CodeTrace-AI 探索创新的开发方法，其中 AI 代理通过精心定义的提示和规范协作来生成软件制品。项目强调：
+CodeTrace-AI 探索一种模块化工作流：AI 通过明确的 rules、skills、commands、memory 与 staged specifications 协作完成文档与后续实现。项目强调：
 
-- **Prompt 驱动开发**：使用结构化提示指导 AI 代理
-- **规范驱动开发 (SDD)**：从详细规范构建
-- **工作流文档**：AI 辅助开发的全面指南
+- **PRD 驱动规划**：从单一 PRD 出发，根据真实项目边界决定文档体系
+- **规范驱动开发**：先生成 global、domain、testing、acceptance 文档，再进入实现
+- **可复用 AI 约束**：将 system prompts、rules、commands、skills、memory 纳入版本管理
+- **可恢复工作流**：持续记录进度，使工作可以从上次完成点继续而不是重来
 
 ## 文档
 
 - [产品需求文档 (PRD)](docs/PRD.md)
 - [AI 开发工作流](docs/Workflow.md)
+- [PRD 到 Coding 的文档编排](docs/PRD-to-Coding-Orchestration.md)
+- [文档系统任务计划](docs/todo-plan.md)
 
 ## 开始使用
 
-本项目旨在通过 AI 交互完全开发。无需传统编码环境 - 所有开发均通过提示和规范进行。
+本仓库面向 AI 辅助开发，当前重点是先建立完整的 document system，再让后续 Coding 建立在清晰、可追溯的规格之上。
 
 ### 先决条件
 
-- 访问 AI 开发工具（例如 GitHub Copilot、Claude 等）
-- 了解软件开发的提示工程
+- 能读取仓库文件并遵循结构化约束的 AI 开发工具
+- 作为主事实来源的项目 PRD
+- 对 staged specification workflow 有基本理解
 
 ### 使用方法
 
-1. 查看 [工作流](docs/Workflow.md) 以获取 AI 驱动开发指南
-2. 使用 `docs/` 中的规范指导 AI 代理
-3. 通过结构化提示生成代码和文档
+1. 先阅读 [PRD](docs/PRD.md) 与 [Workflow](docs/Workflow.md)。
+2. 通过 `docs/` 中的编排文档理解目标文档链路。
+3. 使用 `.qoder/` 下的可复用资产：
+   - `agents/`：system prompt 角色
+   - `skills/`：任务型生成流程
+   - `commands/`：可复用任务入口
+   - `rules/`：仓库级约束
+   - `memory/`：稳定的项目上下文
+4. 按阶段生成 `specs/ref/`、`specs/global/`、`specs/domains/`、`specs/testing/` 与 `specs/acceptance/`。
 
 ## 项目结构
 
 ```
 CodeTrace-AI/
+├── .github/
+│   └── rules/                  # GitHub 侧规则镜像
+├── .qoder/
+│   ├── agents/                 # 可复用 agent system prompts
+│   ├── commands/               # 可复用 command 入口
+│   ├── memory/                 # 稳定 workflow memory
+│   ├── rules/                  # AI 工作流规则
+│   └── skills/                 # 任务型生成技能
 ├── docs/
-│   ├── PRD.md          # 产品需求文档
-│   └── Workflow.md     # AI 开发工作流规范
+│   ├── PRD.md                          # 产品需求文档
+│   ├── Workflow.md                     # 高层工作流参考
+│   ├── PRD-to-Coding-Orchestration.md  # 文档编排设计
+│   └── todo-plan.md                    # 文档系统进度跟踪
 ├── LICENSE
-└── README.md
+├── README.md
+└── README-zh.md
 ```
+
+## 当前范围
+
+当前仓库已经具备以下文档系统基础能力：
+
+- PRD 边界判断
+- 文档树规划
+- Phase 0 `ref` 生成
+- global 规格生成
+- domain 规划与单域展开
+- testing 文档生成
+- acceptance 文档生成
+
+代码实现仍然位于这些文档阶段之后。
 
 ## 贡献
 
-我们欢迎贡献以改进 AI 驱动开发方法。请：
+欢迎围绕 AI-first workflow 提交改进。请遵循：
 
-1. 遵循 [工作流](docs/Workflow.md) 指南
-2. 对任何更改使用结构化提示
-3. 确保所有修改都是规范驱动的
+1. 遵循 `.github/rules/` 与 `.qoder/rules/` 中的规则。
+2. 可复用 system-constraint 文件默认使用英文，除非有明确例外说明。
+3. 使用与任务语义匹配的 branch，不要复用无关 branch。
+4. 完成文档生成工作后，记得同步更新进度跟踪文件。
 
 ## 许可证
 
@@ -55,5 +91,5 @@ CodeTrace-AI/
 
 ## 致谢
 
-- 受现代 AI 辅助开发实践启发
-- 构建以展示提示和规范驱动软件创建的潜力
+- 受模块化 AI 辅助开发实践启发
+- 用于展示 PRD 驱动的文档系统如何组织后续 Coding 工作
