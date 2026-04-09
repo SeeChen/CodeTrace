@@ -15,16 +15,25 @@ The repository follows a document-first AI workflow:
 
 ## Current Reusable Assets
 
+- `Orchestrator Agent`
 - `generate-ref` skill
+- `plan-doc-structure` skill
+- `generate-global` skill
+- `plan-domains` skill
+- `generate-domain-spec` skill
+- `generate-test-design` skill
+- `generate-acceptance` skill
+- `plan-docs` command
 - `ref-docs` rule
 - `Research Agent`
 - `generate-ref` command
 
 ## Intended Expansion Order
 
-1. `generate-global`
-2. `Architect Agent`
-3. `generate-domain-spec`
-4. `Domain Expert Agent`
-5. `generate-test-plan`
-6. `Coding Agent`
+1. generate `specs/ref/`
+2. plan the document tree
+3. generate `specs/global/`
+4. plan domains
+5. generate one domain at a time
+6. generate testing documents
+7. generate acceptance criteria

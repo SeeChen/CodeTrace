@@ -249,14 +249,24 @@ Memory 是长期上下文。它负责“跨多轮保留哪些项目共识”。
 
 在你的项目里，两种都可以存在，但在“文档生成工作流”里，markdown command 往往更实用。
 
-## 9. 下一步建议
+## 9. Current Status
 
-建议按这个顺序继续落地：
+The repository now has the first-pass document-system foundation in place:
 
-1. 固化 `Research Agent`
-2. 固化 `generate-ref` command
-3. 创建 `generate-global` skill
-4. 创建 `Architect Agent`
-5. 创建 `summary.md` 的状态跟踪规则
+1. core planning and orchestration assets
+2. reusable rules for scope, branching, language, and progress sync
+3. agent prompts for `ref`, `global`, `domain`, `testing`, and `acceptance`
+4. commands and skills for staged document generation
+5. a resumable progress tracker in `docs/todo-plan.md`
 
-这样你就会有第一条真正可运行的 AI 文档生产线。
+The next practical step is no longer to define the system itself. The next practical step is to use the system to generate real project documents under `specs/`.
+
+Recommended execution order:
+
+1. `/plan-docs`
+2. `/generate-ref`
+3. `/generate-global`
+4. `/plan-domains`
+5. `/generate-domain`
+6. `/generate-tests`
+7. `/generate-acceptance`
