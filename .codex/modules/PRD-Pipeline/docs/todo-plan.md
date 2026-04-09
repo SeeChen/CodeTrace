@@ -69,4 +69,10 @@
 - `done` `DOC-019` Added the `generate-acceptance` skill and its acceptance contract reference.
 - `done` `DOC-020` Added the `/generate-acceptance` command for final acceptance-document generation.
 
+## Extension Log
+
+- `done` Added `/prd-pipeline` as the complete end-to-end command for running the full document workflow without routine user intervention.
+- `done` Added a dedicated checkpoint file and checkpoint rule so the pipeline can resume from interruption.
+- `done` Added the pipeline interface document so other workflows can call `PRD-Pipeline` compositionally.
+
 

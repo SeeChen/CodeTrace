@@ -264,9 +264,19 @@ The repository now has the first-pass document-system foundation in place:
 4. commands and skills for staged document generation
 5. a resumable progress tracker in `.codex/modules/PRD-Pipeline/docs/todo-plan.md`
 
+The pipeline also now includes:
+
+6. a complete `/prd-pipeline` command
+7. a dedicated checkpoint file for resume behavior
+8. an interface contract so other workflows can call the pipeline
+
 The next practical step is no longer to define the system itself. The next practical step is to use the system to generate real project documents under `specs/`.
 
 Recommended execution order:
+
+1. `/prd-pipeline`
+
+If a workflow needs finer-grained control, the internal sequence remains:
 
 1. `/plan-docs`
 2. `/generate-ref`

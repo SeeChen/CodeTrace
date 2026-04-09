@@ -16,6 +16,7 @@ The repository follows a document-first AI workflow:
 ## Current Reusable Assets
 
 - `Orchestrator Agent`
+- `/prd-pipeline` command
 - `generate-ref` skill
 - `plan-doc-structure` skill
 - `generate-global` skill
@@ -24,6 +25,7 @@ The repository follows a document-first AI workflow:
 - `generate-test-design` skill
 - `generate-acceptance` skill
 - `plan-docs` command
+- `PRD-Pipeline` checkpoint
 - `ref-docs` rule
 - `Research Agent`
 - `generate-ref` command
@@ -37,5 +39,13 @@ The repository follows a document-first AI workflow:
 5. generate one domain at a time
 6. generate testing documents
 7. generate acceptance criteria
+
+## Resume Principle
+
+Long-running workflow execution must resume from repository artifacts, especially:
+
+- `.codex/modules/PRD-Pipeline/memory/prd-pipeline-checkpoint.md`
+- `specs/summary.md`
+- generated specification documents
 
 

@@ -12,6 +12,7 @@ This document serves as an index for all workflow rules in the CodeTrace-AI proj
 - [Agent Doc Size](agent-doc-size.md) - Keep agent markdown files concise and move details to docs
 - [Document Scope](doc-scope.md) - Determine document scope from the actual project boundary
 - [Phase 0 Ref Docs](ref-docs.md) - Rules for generating `specs/ref/` knowledge-base documents
+- [Pipeline Checkpoint](pipeline-checkpoint.md) - Persist stage and domain progress so `/prd-pipeline` can resume
 - [Summary Sync](summary-sync.md) - Update durable progress tracking after each document-generation task
 - [System Constraint Language](system-constraint-language.md) - Use English for reusable AI system constraint files
 - [Exceptions](exceptions.md) - Exceptions to standard rules
