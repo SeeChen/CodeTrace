@@ -8,6 +8,7 @@ This document serves as an index for all workflow rules in the CodeTrace-AI proj
 - [Branch Protection](branch.md) - Branch protection and management
 - [Commit Guidelines](commit.md) - Commit message format and standards
 - [AI Development](ai.md) - Special considerations for AI assistance
+- [Agent Doc Size](agent-doc-size.md) - Keep agent markdown files concise and move details to docs
 - [Phase 0 Ref Docs](ref-docs.md) - Rules for generating `specs/ref/` knowledge-base documents
 - [Exceptions](exceptions.md) - Exceptions to standard rules
 
