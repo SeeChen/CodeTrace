@@ -10,8 +10,9 @@ Every task should run on an appropriate working branch. AI agents must not treat
 
 - Check the current branch before making changes
 - Decide whether the current task belongs on the current branch
+- Reuse the current branch only when the task matches that branch's meaning and scope
 - Create or switch to a suitable branch when the task is new or unrelated
-- Keep related changes on the same branch and separate unrelated changes onto different branches
+- Keep related changes on the same branch and separate meaningfully different changes onto different branches
 - Do not use `main` as the default working branch for normal tasks
 
 ## Branch Naming
@@ -31,6 +32,6 @@ Before starting implementation, verify:
 
 ## Anti-Patterns
 
-- Do not keep working on a previous task branch by default
-- Do not mix multiple unrelated tasks into one branch
+- Do not keep working on a branch whose purpose does not match the current task
+- Do not mix multiple meaningfully different tasks into one branch
 - Do not commit routine work directly to `main`
