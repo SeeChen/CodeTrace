@@ -1,8 +1,5 @@
 # .gitignore for CodeTrace-AI
 
-# AI-generated temporary files
-.qoder/
-
 # Python
 __pycache__/
 *.py[cod]
