@@ -70,6 +70,10 @@ Document:
 - data or control flow
 - failure paths
 - extension points
+- lifecycle and state transitions when relevant
+- important inputs, outputs, and cross-domain contracts
+- implementation notes that reduce ambiguity for coding
+- testing implications for the domain
 
 ## Writing Rules
 
@@ -77,6 +81,9 @@ Document:
 - Keep consistency with global contracts.
 - Prefer explicit responsibilities over vague descriptions.
 - Leave open questions when upstream inputs remain unresolved.
+- Do not stop at a skeleton. Domain specs should be implementation-ready whenever the domain is on the critical path for coding.
+- For core domains, include enough detail that a coding agent can implement the first version without having to redesign contracts, failure handling, or control flow.
+- Use concise structure, but favor concrete detail over high-level restatement.
 
 ## Handoff Rules
 

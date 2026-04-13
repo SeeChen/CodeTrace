@@ -20,4 +20,10 @@ Each gate should be:
 - reviewable
 - connected to a requirement, constraint, or test plan
 
+The acceptance document should remain concise in size, but each gate should still identify:
+
+- what is being checked
+- why it blocks or does not block the milestone
+- what evidence is required
+
 

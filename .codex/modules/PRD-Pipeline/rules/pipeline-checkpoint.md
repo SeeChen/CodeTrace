@@ -19,6 +19,7 @@ Use:
 - Update the checkpoint after every completed domain during domain expansion
 - Record blockers before stopping
 - Resume from the first incomplete stage on the next run
+- Respect explicit regeneration or partial-run instructions such as `--force`, `--from`, `--only`, and `--refresh`
 
 ## Minimum Checkpoint Data
 
@@ -30,6 +31,8 @@ The checkpoint must record:
 4. completed and remaining domains
 5. current blockers
 6. output status by phase
+7. last invocation mode
+8. regeneration scope when applicable
 
 ## Anti-Patterns
 
@@ -37,3 +40,4 @@ The checkpoint must record:
 - Do not rely on chat memory instead of checkpoint state
 - Do not mark a stage complete before its outputs exist
 - Do not stop without recording the current blocker or next step
+- Do not ignore an explicit user request to re-run only part of the pipeline

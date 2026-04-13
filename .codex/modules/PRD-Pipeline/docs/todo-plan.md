@@ -1,20 +1,20 @@
 # Document System Todo Plan
 
-本文件记录“从 PRD 到文档体系”的落地任务清单。目标是把文档系统所需的 `agent / skill / rule / command / memory` 分阶段落库，并持续更新状态，保证中断后可以继续。
+This file records the implementation task list for the document system from `PRD` to a full specification set. Its purpose is to land the required `agent / skill / rule / command / memory` assets in stages and keep progress durable so interrupted work can resume cleanly.
 
-## 使用方式
+## Usage
 
-1. 每完成一个任务，就更新一次状态。
-2. 如中断，下一次从最后一个 `todo` 或 `in_progress` 项继续。
-3. 如果过程中发现边界变化，先更新本计划，再继续执行。
-4. `Progress Log` 必须记录已完成项，避免重新开始。
+1. Update the status after each completed task.
+2. If work is interrupted, resume from the last `todo` or `in_progress` item.
+3. If the project boundary changes, update this plan before continuing.
+4. The `Progress Log` must record completed work so future runs do not restart blindly.
 
-## 当前原则
+## Current Principles
 
-- `PRD` 是唯一主源。
-- `Workflow.md` 是流程参考，不是固定模板。
-- 示例目录结构可以调整，必须先判断项目边界再生成真实目录结构。
-- 下游文档必须依赖上游文档，不能跳级生成。
+- `PRD` is the primary source of truth.
+- `Workflow.md` is the process reference, not a fixed template.
+- The example directory structure may be adjusted, but real project boundaries must be evaluated before generating the actual tree.
+- Downstream documents must depend on upstream documents; do not skip levels.
 
 ## Todo List
 
@@ -45,6 +45,7 @@
 
 - All tasks in the current todo list are complete.
 - `DOC-001` is complete and already reflected in the repository state.
+- The first full `/prd-pipeline` execution for `docs/PRD.md` is complete and the generated specification set now exists under `specs/`.
 
 ## Progress Log
 
@@ -74,5 +75,6 @@
 - `done` Added `/prd-pipeline` as the complete end-to-end command for running the full document workflow without routine user intervention.
 - `done` Added a dedicated checkpoint file and checkpoint rule so the pipeline can resume from interruption.
 - `done` Added the pipeline interface document so other workflows can call `PRD-Pipeline` compositionally.
+- `done` Ran `/prd-pipeline docs/PRD.md` end to end and generated `specs/ref/*`, `specs/global/*`, `specs/domains/*`, `specs/testing/*`, `specs/acceptance/*`, plus synchronized summary and checkpoint artifacts.
 
 

@@ -62,6 +62,15 @@ Map the identified validation needs into clear planning documents.
 
 Explain what each testing document is responsible for validating and why it matters.
 
+### Step 4: Make validation actionable
+
+Where the project justifies it, include:
+
+- scenario matrices
+- pass/fail intent
+- dependencies or fixture assumptions
+- risk notes for unresolved behavior
+
 ## Handoff Rules
 
 Before finishing, verify:
@@ -70,5 +79,6 @@ Before finishing, verify:
 2. the output can guide both coding and automated testing
 3. unnecessary test documents were not added without reason
 4. progress tracking will be updated
+5. the testing layer is concrete enough that future executable tests do not need to infer the validation model from scratch
 
 

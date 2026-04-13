@@ -1,72 +1,72 @@
-# PRD 到 Coding 文档编排工作流
+# PRD-to-Coding Document Orchestration Workflow
 
-本文档定义一个适合纯 AI Coding 场景的文档编排流程。目标是在只有 `PRD` 的前提下，通过一组稳定的 `Agent / Skill / Rule / Command / Memory`，逐步生成可执行的规格文档，最终驱动 Coding。
+This document defines a document-orchestration workflow for AI-first coding environments. The goal is to start from a `PRD` and, through a stable set of `Agent / Skill / Rule / Command / Memory` assets, generate executable specifications step by step until the repository is ready for coding.
 
-## 1. 设计目标
+## 1. Design Goals
 
-这套工作流解决三个问题：
+This workflow addresses three problems:
 
-1. AI 不能直接从 PRD 跳到 Coding，否则容易遗漏约束或在中途漂移。
-2. 不同 Agent 如果没有统一输入输出边界，很容易重复生成、互相覆盖，或者写出冲突文档。
-3. 文档必须既能让 AI 读，也能让人复核，因此需要结构稳定、职责清晰。
+1. AI should not jump directly from `PRD` to coding, because that often causes missing constraints or mid-stream design drift.
+2. Without explicit input/output boundaries, different agents tend to duplicate work, overwrite each other, or generate conflicting documents.
+3. Documents must be readable by both AI and humans, so the structure has to remain stable, reviewable, and responsibility-driven.
 
-## 2. 从 PRD 到 Coding 的推荐链路
+## 2. Recommended Path from PRD to Coding
 
-推荐采用以下顺序推进：
+The recommended progression is:
 
 `PRD -> Memory -> Global -> Domain -> Test Design -> Coding`
 
-对应目录如下：
+The corresponding directories are:
 
 1. `specs/ref/`
 2. `specs/global/`
 3. `specs/domains/`
 4. `specs/testing/`
-5. `src/` 与 `tests/`
+5. `src/` and `tests/`
 
-## 3. 五类构件的职责
+## 3. Responsibilities of the Five Building Blocks
 
 ### Agent
 
-Agent 是角色。它负责“站在什么视角做事”。
+An Agent is a role. It defines the perspective from which work is performed.
 
-例如：
+Examples:
 
-- `Research Agent` 负责 Phase 0 的 `ref/`
-- `Architect Agent` 负责 `global/`
-- `Domain Expert Agent` 负责 `domains/`
-- `Test Designer Agent` 负责 `testing/`
-- `Coding Agent` 负责实现代码
+- `Research Agent` owns Phase 0 `ref/`
+- `Architect Agent` owns `global/`
+- `Domain Expert Agent` owns `domains/`
+- `Test Designer Agent` owns `testing/`
+- `Coding Agent` owns code implementation
 
 ### Skill
 
-Skill 是能力包。它负责“如何稳定完成一类任务”。
+A Skill is a capability package. It defines how one class of task is completed reliably.
 
-例如：
+Examples:
 
-- `generate-ref` 负责从 PRD 生成 `specs/ref/`
-- 后续可以有 `generate-global`
-- 后续可以有 `generate-domain-spec`
-- 后续可以有 `generate-test-plan`
+- `generate-ref` creates `specs/ref/` from the PRD
+- `generate-global` creates the global specification layer
+- `generate-domain-spec` expands one implementation domain
+- `generate-test-plan` or equivalent creates the testing layer
 
 ### Rule
 
-Rule 是约束。它负责“什么可以做，什么不可以做”。
+A Rule is a constraint. It defines what is allowed and what is not allowed.
 
-例如：
+Examples:
 
-- 只能基于 `PRD` 和上游规格生成
-- 必须区分事实、推断、待确认项
-- 未锁定 API 前不得进入 Coding
-- 不能伪造 benchmark 结果
+- generate only from the `PRD` and upstream specs
+- distinguish facts, inferences, and open questions
+- do not enter coding before the API is stable
+- do not fabricate benchmark results
 
 ### Command
 
-Command 是入口。它负责“用户说一句话后，AI 应该触发哪条工作流”。
+A Command is the entry point. It defines which workflow should run when a user triggers a task.
 
-它可以是脚本，也可以是 markdown prompt 模板。
+It may be a script, or it may be a markdown prompt template.
 
-例如：
+Examples:
 
 - `generate-ref`
 - `generate-global`
@@ -75,58 +75,58 @@ Command 是入口。它负责“用户说一句话后，AI 应该触发哪条工
 
 ### Memory
 
-Memory 是长期上下文。它负责“跨多轮保留哪些项目共识”。
+Memory is long-lived project context. It defines which shared project agreements survive across runs.
 
-例如：
+Examples:
 
-- 项目术语表
-- 已确认架构约束
-- 文档生成顺序
-- 已冻结 API 决策
-- 当前阶段状态
+- project glossary
+- confirmed architectural constraints
+- document generation order
+- frozen API decisions
+- current stage status
 
-## 4. 推荐的最小闭环
+## 4. Recommended Minimal Closed Loop
 
-如果你要先把这套系统跑起来，建议先做下面这一条闭环：
+If you want to bring the system to life quickly, start with this minimum loop:
 
 1. `PRD`
 2. `Research Agent`
 3. `generate-ref` skill
 4. `generate-ref` command
-5. 输出 `specs/ref/*`
-6. 进入 `generate-global`
+5. output `specs/ref/*`
+6. continue to `generate-global`
 
-原因很简单：`ref/` 是最适合作为第一步自动化的部分，输入单一，输出稳定，而且能为后续所有文档降噪。
+This works well because `ref/` is the most automation-friendly first step: the inputs are narrow, the outputs are stable, and the result reduces ambiguity for every downstream document.
 
-## 5. 每一阶段的进入条件
+## 5. Entry Conditions for Each Stage
 
 ### Phase 0: Memory
 
-输入：
+Inputs:
 
 - `docs/PRD.md`
 - `docs/Workflow.md`
 
-输出：
+Outputs:
 
 - `specs/ref/prd_keywords.md`
 - `specs/ref/std_lib_research.md`
 - `specs/ref/perf_baseline.md`
 
-进入下一阶段前必须满足：
+Before moving to the next stage:
 
-- 术语已归一
-- 标准库候选边界清晰
-- 性能预算已写成可验证计划
+- terminology must be normalized
+- standard-library candidate boundaries must be clear
+- the performance budget must be written as a reviewable validation plan
 
 ### Phase 1: Global
 
-输入：
+Inputs:
 
 - `PRD`
 - `specs/ref/*`
 
-输出：
+Outputs:
 
 - `app-business.md`
 - `SA.md`
@@ -135,68 +135,68 @@ Memory 是长期上下文。它负责“跨多轮保留哪些项目共识”。
 - `constraint.md`
 - `API.md`
 
-进入下一阶段前必须满足：
+Before moving to the next stage:
 
-- 模块边界明确
-- API 契约冻结
-- 关键约束可以指导 Domain 拆解
+- module boundaries must be clear
+- API contracts must be stable enough to guide domain work
+- key constraints must be explicit enough to support domain decomposition
 
 ### Phase 2: Domain
 
-输入：
+Inputs:
 
 - `specs/global/*`
 - `specs/ref/*`
 
-输出：
+Outputs:
 
-- 各领域 `SA.md`
+- domain `SA.md`
 - `layer-core.md`
 - `layer-dao.md`
 - `layer-biz.md`
 - `layer-facade.md`
 
-进入下一阶段前必须满足：
+Before moving to the next stage:
 
-- 每个模块都有实现边界
-- 层级职责明确
-- 关键异常路径已描述
+- every module must have a clear implementation boundary
+- layer responsibilities must be explicit
+- major failure paths must be described
 
 ### Phase 2.5: Test Design
 
-输入：
+Inputs:
 
 - `specs/global/*`
 - `specs/domains/*`
 
-输出：
+Outputs:
 
-- 性能测试设计
-- 并发/幂等测试设计
-- 边界条件测试设计
+- performance test design
+- concurrency or idempotency test design when relevant
+- boundary-case and failure-path validation design
 
-进入 Coding 前必须满足：
+Before moving to coding:
 
-- 每个关键模块都有对应测试意图
-- 核心红线可映射为测试用例
+- every critical module must have clear test intent
+- core constraints must map to reviewable test cases
 
 ### Phase 3: Coding
 
-输入：
+Inputs:
 
 - `specs/global/*`
 - `specs/domains/*`
 - `specs/testing/*`
 
-输出：
+Outputs:
 
 - `src/`
 - `tests/`
-- 测试结果
+- test results
 
-## 6. 推荐目录
+## 6. Recommended Directory for AI Orchestration Assets
 
-建议补充以下目录作为 AI 编排入口：
+Use the following structure as the orchestration entry point:
 
 ```text
 .codex/
@@ -210,49 +210,49 @@ Memory 是长期上下文。它负责“跨多轮保留哪些项目共识”。
         └── skills/
 ```
 
-职责建议：
+Suggested responsibilities:
 
-- `modules/`: 可继续扩展的 pipeline 或模块化 bundle
-- `modules/PRD-Pipeline/agents/`: 角色 prompt
-- `modules/PRD-Pipeline/commands/`: 用户可直接触发的任务入口
-- `modules/PRD-Pipeline/docs/`: Codex 内部编排与计划文档
-- `modules/PRD-Pipeline/memory/`: 跨轮共享的项目记忆
-- `modules/PRD-Pipeline/rules/`: 仓库级约束
-- `modules/PRD-Pipeline/skills/`: 具体任务能力包
+- `modules/`: reusable pipelines or modular orchestration bundles
+- `modules/PRD-Pipeline/agents/`: role prompts
+- `modules/PRD-Pipeline/commands/`: direct task entry points
+- `modules/PRD-Pipeline/docs/`: internal orchestration and planning documents
+- `modules/PRD-Pipeline/memory/`: durable shared project context
+- `modules/PRD-Pipeline/rules/`: repository-level constraints
+- `modules/PRD-Pipeline/skills/`: reusable task capability packages
 
-## 7. 编排原则
+## 7. Orchestration Principles
 
-1. 永远从上游文档生成下游文档，不要跳阶段。
-2. 每个 Agent 只负责自己的输出，不直接改别人的领域文档。
-3. 每个文档都必须写明输入来源。
-4. 每个阶段结束都要留下 `Open Questions`。
-5. Coding 只消费已冻结规格，不替代规格设计。
+1. Always generate downstream documents from upstream documents; do not skip stages.
+2. Each agent should own its own outputs rather than directly rewriting another domain's document set.
+3. Every document should state its input sources.
+4. Every stage should preserve `Open Questions`.
+5. Coding consumes frozen specs; it does not replace specification design.
 
-## 8. 为什么有些 command 是 `.md`
+## 8. Why Some Commands Are Markdown Files
 
-因为在 AI 工作流里，`command` 不一定是“执行 shell 脚本”。
+In AI workflows, a `command` does not have to be an executable shell script.
 
-它经常是一个“可复用的任务入口模板”，本质上是：
+It is often a reusable task-entry template that defines:
 
-- 触发词
-- 输入要求
-- 输出要求
-- 执行步骤
-- 禁止事项
+- trigger phrase
+- required inputs
+- expected outputs
+- execution steps
+- prohibitions and guardrails
 
-这类内容用 markdown 很合适，因为：
+Markdown works well for this because:
 
-1. AI 更容易直接读取自然语言规范。
-2. 这类 command 主要是“约束生成行为”，不是做系统调用。
-3. markdown 比脚本更容易审阅、版本控制、协作修改。
-4. 同一条 command 以后既可以被人手动调用，也可以被 Agent 当提示词模板读取。
+1. AI can read and follow natural-language constraints directly.
+2. These commands constrain generation behavior more than they perform system calls.
+3. Markdown is easier to review, version, and evolve collaboratively than one-off scripts.
+4. The same command can later be used manually by a person or loaded by another agent as a workflow template.
 
-你可以把它理解成：
+You can think of the distinction like this:
 
-- 脚本型 command：让机器执行动作
-- markdown 型 command：让 AI 按固定流程思考和产出
+- script command: makes the machine perform actions
+- markdown command: makes the AI reason and produce outputs in a fixed workflow
 
-在你的项目里，两种都可以存在，但在“文档生成工作流”里，markdown command 往往更实用。
+Both can exist in the same repository, but markdown commands are often the better fit for document-generation workflows.
 
 ## 9. Current Status
 
@@ -269,8 +269,9 @@ The pipeline also now includes:
 6. a complete `/prd-pipeline` command
 7. a dedicated checkpoint file for resume behavior
 8. an interface contract so other workflows can call the pipeline
+9. partial-regeneration and scoped rerun modes such as `--force`, `--from`, `--only`, `--refresh`, `--domain`, and `--depth`
 
-The next practical step is no longer to define the system itself. The next practical step is to use the system to generate real project documents under `specs/`.
+The next practical step is no longer to define the system itself. The next practical step is to use the system to generate real project documents under `specs/` and then implement from those outputs.
 
 Recommended execution order:
 
@@ -285,5 +286,3 @@ If a workflow needs finer-grained control, the internal sequence remains:
 5. `/generate-domain`
 6. `/generate-tests`
 7. `/generate-acceptance`
-
-

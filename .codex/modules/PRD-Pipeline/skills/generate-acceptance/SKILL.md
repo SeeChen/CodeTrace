@@ -54,6 +54,7 @@ Document:
 - mandatory technical gates
 - required evidence or review artifacts
 - deferred or non-blocking checks
+- milestone-specific exclusions so future-scope features do not become accidental blockers
 
 ### Step 3: Align with testing
 
@@ -67,5 +68,6 @@ Before finishing, verify:
 2. the gates are clear enough for human review
 3. the output is concise and decision-friendly
 4. progress tracking will be updated
+5. each gate is concrete enough to map back to a requirement, design document, or testing artifact
 
 

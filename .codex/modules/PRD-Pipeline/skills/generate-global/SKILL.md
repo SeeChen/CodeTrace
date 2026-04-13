@@ -68,6 +68,10 @@ Document:
 - structure and module ownership
 - non-negotiable constraints
 - public API or contract expectations
+- frozen decisions versus deferred decisions
+- cross-domain lifecycle expectations
+- major failure-boundary expectations
+- implementation-facing notes that downstream domain specs should not need to rediscover
 
 ### Step 3: Prepare downstream domain work
 
@@ -79,10 +83,13 @@ Make sure the global files tell later agents:
 
 ## Writing Rules
 
-- Keep the global layer stable, not overly detailed.
+- Keep the global layer stable, but not thin.
+- Planning sections may stay concise, but global design documents should be detailed enough to guide domain work without forcing re-derivation of architecture.
 - Use diagrams only if plain text structure is insufficient.
 - Separate required constraints from implementation suggestions.
 - Mark uncertain areas as open questions instead of pretending they are resolved.
+- Prefer concrete contracts, lifecycle descriptions, dependency notes, and failure-boundary explanations over abstract summaries.
+- Each global file should clearly state what is frozen here and what remains deferred to domain specs.
 
 ## Handoff Rules
 

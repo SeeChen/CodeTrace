@@ -4,35 +4,37 @@ Use this file as the durable resume point for `/prd-pipeline`.
 
 ## Status
 
-- Pipeline Status: `not_started`
-- Last Completed Stage: `none`
+- Pipeline Status: `complete`
+- Last Completed Stage: `finalize`
 - Current Stage: `none`
-- Next Stage: `plan-docs`
+- Next Stage: `none`
+- Last Invocation Mode: `full_pipeline`
+- Regeneration Scope: `none`
 
 ## Stage Checklist
 
-- [ ] Stage 1: Plan Documents
-- [ ] Stage 2: Generate `ref`
-- [ ] Stage 3: Generate `global`
-- [ ] Stage 4: Plan Domains
-- [ ] Stage 5: Generate Domain Specs
-- [ ] Stage 6: Generate Testing Documents
-- [ ] Stage 7: Generate Acceptance Documents
-- [ ] Stage 8: Finalize
+- [x] Stage 1: Plan Documents
+- [x] Stage 2: Generate `ref`
+- [x] Stage 3: Generate `global`
+- [x] Stage 4: Plan Domains
+- [x] Stage 5: Generate Domain Specs
+- [x] Stage 6: Generate Testing Documents
+- [x] Stage 7: Generate Acceptance Documents
+- [x] Stage 8: Finalize
 
 ## Domain Progress
 
-- Completed Domains: `none`
-- Remaining Domains: `unknown`
+- Completed Domains: `tracing_runtime`, `configuration_contracts`, `persistence_artifacts`, `comparison_reporting`
+- Remaining Domains: `none`
 
 ## Outputs
 
-- Planning Output: `pending`
-- `specs/ref/`: `pending`
-- `specs/global/`: `pending`
-- `specs/domains/`: `pending`
-- `specs/testing/`: `pending`
-- `specs/acceptance/`: `pending`
+- Planning Output: `complete`
+- `specs/ref/`: `complete`
+- `specs/global/`: `complete`
+- `specs/domains/`: `complete`
+- `specs/testing/`: `complete`
+- `specs/acceptance/`: `complete`
 
 ## Blockers
 
@@ -44,3 +46,9 @@ Use this file as the durable resume point for `/prd-pipeline`.
 - Update this file after every completed domain during Stage 5.
 - Record blockers here before stopping.
 - Resume from the first incomplete stage, not from the beginning.
+
+## Completion Notes
+
+- Completed `/prd-pipeline` run for `docs/PRD.md` on `2026-04-10`.
+- Wrote planning, `ref`, `global`, domain, testing, and acceptance outputs under `specs/`.
+- Final status is also synchronized in `specs/summary.md` and `.codex/modules/PRD-Pipeline/docs/todo-plan.md`.

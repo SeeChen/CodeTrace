@@ -70,6 +70,10 @@ For each domain, specify whether it needs:
 
 Recommend which domains should be expanded first and why.
 
+### Step 5: Calibrate depth expectations
+
+For each domain, note whether the downstream spec should stay light, balanced, or deep. Domains that directly affect runtime correctness, persistence, public contracts, or validation should default to deeper treatment.
+
 ## Handoff Rules
 
 Before finishing, verify:
@@ -78,5 +82,6 @@ Before finishing, verify:
 2. domain count is justified
 3. each domain has a clear next step
 4. progress tracking will be updated
+5. high-risk domains are marked for implementation-ready depth rather than skeletal expansion
 
 

@@ -21,4 +21,15 @@ Each domain output should make clear:
 - failure paths
 - open questions
 
+## Implementation-Ready Depth
+
+For domains on the coding critical path, the document set should also cover:
+
+- lifecycle or control-flow outline
+- important inputs and outputs
+- cross-domain contracts
+- extension points
+- testing implications
+- frozen decisions versus deferred details
+
 

@@ -9,8 +9,42 @@ Run the full PRD-Pipeline from planning to acceptance-document generation with m
 Trigger this workflow with:
 
 - `/prd-pipeline`
+- `/prd-pipeline docs/PRD.md`
+- `/prd-pipeline docs/PRD.md --force`
+- `/prd-pipeline docs/PRD.md --from global`
+- `/prd-pipeline docs/PRD.md --only acceptance`
+- `/prd-pipeline docs/PRD.md --refresh global,domains`
+- `/prd-pipeline docs/PRD.md --domain comparison_reporting`
+- `/prd-pipeline docs/PRD.md --depth balanced`
+- `/prd-pipeline docs/PRD.md --depth deep`
 
 This command may be run by a user directly or invoked by another workflow.
+
+## Invocation Modes
+
+Use these modes when full resume behavior is not enough:
+
+- `--force`
+  Ignore completed-stage status and regenerate the whole pipeline from planning through finalize.
+- `--from <stage>`
+  Re-run from a named stage onward. Supported stage names: `plan-docs`, `ref`, `global`, `plan-domains`, `domains`, `testing`, `acceptance`, `finalize`.
+- `--only <stage>`
+  Run only one stage and update checkpoint state accordingly.
+- `--refresh <scope>`
+  Regenerate a comma-separated scope such as `ref`, `global`, `domains`, `testing`, `acceptance`, or a mixed scope like `global,domains`.
+- `--domain <name>`
+  Limit Stage 5 to one named domain. This is valid with `--from domains`, `--only domains`, or `--refresh domains`.
+- `--depth balanced|deep`
+  Control document density. `balanced` keeps planning documents concise while producing implementation-ready detail in design documents. `deep` expands design, failure-path, contract, and validation detail further.
+
+When multiple options are provided, interpret them in this order:
+
+1. `--force`
+2. `--only`
+3. `--from`
+4. `--refresh`
+5. `--domain`
+6. `--depth`
 
 ## Read First
 
@@ -47,6 +81,8 @@ Before doing any work:
 
 If the checkpoint says the pipeline is complete, verify outputs briefly and stop unless the user requested regeneration.
 
+If the user requested `--force`, `--from`, `--only`, or `--refresh`, that explicit invocation overrides the default resume behavior.
+
 ## Clarification Policy
 
 Do not stop for routine confirmation.
@@ -78,6 +114,11 @@ Output:
 
 Checkpoint after completion.
 
+Depth behavior:
+
+- keep planning concise and decision-oriented
+- do not over-expand planning into domain internals
+
 ### Stage 2: Generate `ref`
 
 Run:
@@ -105,6 +146,11 @@ Output:
 - `specs/global/*`
 
 Checkpoint after completion.
+
+Depth behavior:
+
+- keep the global layer architectural rather than domain-specific
+- include enough detail that downstream domain work does not need to re-derive contracts, lifecycle expectations, failure boundaries, or implementation-relevant frozen decisions
 
 ### Stage 4: Plan Domains
 
@@ -135,6 +181,11 @@ Output:
 
 Checkpoint after each domain.
 
+Depth behavior:
+
+- domain specs should be implementation-ready, not merely skeletal
+- include lifecycle, responsibilities, data/control flow, failure paths, extension points, dependency notes, and testing implications for each required layer
+
 ### Stage 6: Generate Testing Documents
 
 Run:
@@ -149,6 +200,10 @@ Output:
 
 Checkpoint after completion.
 
+Depth behavior:
+
+- testing outputs should include scenario matrices, requirement coverage, major fixtures or dependencies, pass/fail intent, and remaining validation risk
+
 ### Stage 7: Generate Acceptance Documents
 
 Run:
@@ -162,6 +217,10 @@ Output:
 - `specs/acceptance/*`
 
 Checkpoint after completion.
+
+Depth behavior:
+
+- acceptance outputs should stay concise in shape but concrete in gates, evidence, and non-blocking scope decisions
 
 ### Stage 8: Finalize
 
@@ -211,3 +270,4 @@ This command should leave the repository with:
 - Do not regenerate already-complete stages without reason.
 - Do not overwrite open questions with unsupported assumptions.
 - Do not stop after intermediate document generation unless a real blocker exists.
+- Do not keep every stage at the same level of detail; planning may stay lean, while design and validation stages should expand to implementation-supporting depth.

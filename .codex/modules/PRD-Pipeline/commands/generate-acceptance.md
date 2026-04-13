@@ -4,6 +4,13 @@
 
 Generate the acceptance criteria layer for the current milestone.
 
+## Direct Invocation
+
+- `/generate-acceptance`
+- `/generate-acceptance --refresh`
+- `/generate-acceptance --depth balanced`
+- `/generate-acceptance --depth deep`
+
 ## Read First
 
 1. `docs/PRD.md`
@@ -30,5 +37,6 @@ Generate the acceptance criteria layer for the current milestone.
 - Do not invent new requirements at this stage.
 - Do not make acceptance depend on future-scope features.
 - Keep the criteria concrete and reviewable.
+- Keep the document concise in form, but not vague in gates or evidence requirements.
 
 

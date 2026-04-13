@@ -6,6 +6,16 @@ This document defines how the `PRD-Pipeline` workflow may be called directly or 
 
 - `/prd-pipeline`
 
+Supported invocation patterns:
+
+- `/prd-pipeline docs/PRD.md`
+- `/prd-pipeline docs/PRD.md --force`
+- `/prd-pipeline docs/PRD.md --from <stage>`
+- `/prd-pipeline docs/PRD.md --only <stage>`
+- `/prd-pipeline docs/PRD.md --refresh <scope>`
+- `/prd-pipeline docs/PRD.md --domain <name>`
+- `/prd-pipeline docs/PRD.md --depth balanced|deep`
+
 ## Purpose
 
 Generate the complete project document set from the PRD through acceptance-document generation while remaining resumable and self-contained.
@@ -35,6 +45,16 @@ The workflow must:
 2. update the checkpoint after each completed domain during domain expansion
 3. record blockers instead of silently failing
 4. resume from the first incomplete stage on the next run
+5. record explicit regeneration intent when the invocation uses `--force`, `--from`, `--only`, or `--refresh`
+
+## Mode Semantics
+
+- `--force` means full regeneration regardless of completion state.
+- `--from <stage>` means resume-like behavior is bypassed and work starts from the named stage.
+- `--only <stage>` means run one stage without implicitly continuing to later stages.
+- `--refresh <scope>` means regenerate only the named phase or phases.
+- `--domain <name>` scopes Stage 5 work to one domain when domain generation is active.
+- `--depth balanced|deep` controls document density and should be forwarded to downstream generation behavior.
 
 ## Composition Contract
 
