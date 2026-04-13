@@ -4,6 +4,13 @@
 
 Generate or refresh the global specification layer for the current project.
 
+## Direct Invocation
+
+- `/generate-global`
+- `/generate-global --refresh`
+- `/generate-global --depth balanced`
+- `/generate-global --depth deep`
+
 ## Read First
 
 1. `docs/PRD.md`
@@ -29,5 +36,6 @@ Generate or refresh the global specification layer for the current project.
 - Do not write detailed domain specs in this step.
 - Do not copy the example file list blindly.
 - Keep decisions traceable to the PRD and upstream planning outputs.
+- Keep the global layer architectural, but detailed enough that domain planning does not need to reconstruct contracts, lifecycle expectations, or failure boundaries from scratch.
 
 

@@ -4,6 +4,13 @@
 
 Generate the specification set for one planned domain.
 
+## Direct Invocation
+
+- `/generate-domain <name>`
+- `/generate-domain <name> --refresh`
+- `/generate-domain <name> --depth balanced`
+- `/generate-domain <name> --depth deep`
+
 ## Read First
 
 1. `docs/PRD.md`
@@ -29,5 +36,6 @@ Generate the specification set for one planned domain.
 - Work on one domain per run unless the task explicitly requests more.
 - Do not override global decisions in the domain documents.
 - Generate only the layer files that the domain actually needs.
+- Do not stop at skeletal descriptions for critical domains; the output should be detailed enough to guide implementation and testing.
 
 

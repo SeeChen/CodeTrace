@@ -28,4 +28,13 @@ Each file should help answer:
 - what decisions it freezes
 - what decisions remain deferred to domain specs
 
+## Minimum Depth Expectations
+
+- `app-business.md` should describe the primary lifecycle and major user flows, not only file purpose statements.
+- `SA.md` should define topology, component responsibilities, and major failure boundaries.
+- `project-structure.md` should connect repository layout to implementation responsibilities.
+- `modules.md` should make ownership and dependencies explicit enough for domain planning.
+- `constraint.md` should separate non-negotiable rules from recommendations.
+- `API.md` should capture stable contract expectations, extension seams, and deferred contract details.
+
 

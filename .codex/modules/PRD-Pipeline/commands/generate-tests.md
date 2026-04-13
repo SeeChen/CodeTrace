@@ -4,6 +4,13 @@
 
 Generate the testing specification layer from the current PRD and spec set.
 
+## Direct Invocation
+
+- `/generate-tests`
+- `/generate-tests --refresh`
+- `/generate-tests --depth balanced`
+- `/generate-tests --depth deep`
+
 ## Read First
 
 1. `docs/PRD.md`
@@ -29,5 +36,6 @@ Generate the testing specification layer from the current PRD and spec set.
 - Do not write executable tests in this step.
 - Do not ignore acceptance-relevant constraints.
 - Do not create test documents that the current project does not justify.
+- Make the validation model concrete enough that future test implementation does not need to infer scenario shape from vague prose.
 
 

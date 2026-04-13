@@ -87,6 +87,7 @@ For each important inclusion, omission, merge, or split, explain the reason brie
 - Separate facts, inferences, and open questions.
 - Avoid detailed architecture design in this planning output.
 - Prefer tables for document classification.
+- Keep planning intentionally lean; this skill should freeze scope and structure, not substitute for detailed design work.
 
 ## Handoff Rules
 
