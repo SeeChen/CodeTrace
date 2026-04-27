@@ -1,54 +1,22 @@
 # PRD-Pipeline Checkpoint
 
-Use this file as the durable resume point for `/prd-pipeline`.
+This file exists for legacy compatibility with the older stage model.
 
-## Status
+The active workflow should prefer:
 
-- Pipeline Status: `complete`
-- Last Completed Stage: `finalize`
-- Current Stage: `none`
-- Next Stage: `none`
-- Last Invocation Mode: `full_pipeline`
-- Regeneration Scope: `none`
+- `pipeline-state.md`
+- `frozen-decisions.md`
+- `open-questions.md`
+- `implementation-log.md`
 
-## Stage Checklist
+## Legacy Status
 
-- [x] Stage 1: Plan Documents
-- [x] Stage 2: Generate `ref`
-- [x] Stage 3: Generate `global`
-- [x] Stage 4: Plan Domains
-- [x] Stage 5: Generate Domain Specs
-- [x] Stage 6: Generate Testing Documents
-- [x] Stage 7: Generate Acceptance Documents
-- [x] Stage 8: Finalize
+- Legacy Pipeline Status: `complete`
+- Legacy Last Completed Stage: `finalize`
+- Legacy Completion Date: `2026-04-10`
 
-## Domain Progress
+## Migration Note
 
-- Completed Domains: `tracing_runtime`, `configuration_contracts`, `persistence_artifacts`, `comparison_reporting`
-- Remaining Domains: `none`
+Do not expand this file with new delivery-stage detail unless a legacy command still requires it.
 
-## Outputs
-
-- Planning Output: `complete`
-- `specs/ref/`: `complete`
-- `specs/global/`: `complete`
-- `specs/domains/`: `complete`
-- `specs/testing/`: `complete`
-- `specs/acceptance/`: `complete`
-
-## Blockers
-
-- `none`
-
-## Notes
-
-- Update this file after every completed stage.
-- Update this file after every completed domain during Stage 5.
-- Record blockers here before stopping.
-- Resume from the first incomplete stage, not from the beginning.
-
-## Completion Notes
-
-- Completed `/prd-pipeline` run for `docs/PRD.md` on `2026-04-10`.
-- Wrote planning, `ref`, `global`, domain, testing, and acceptance outputs under `specs/`.
-- Final status is also synchronized in `specs/summary.md` and `.codex/modules/PRD-Pipeline/docs/todo-plan.md`.
+Record all new stage progress in `pipeline-state.md`.
