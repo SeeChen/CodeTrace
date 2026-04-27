@@ -10,6 +10,7 @@ This document serves as an index for all workflow rules in the CodeTrace-AI proj
 - [Commit Guidelines](commit.md) - Commit message format and standards
 - [AI Development](ai.md) - Special considerations for AI assistance
 - [Agent Doc Size](agent-doc-size.md) - Keep agent markdown files concise and move details to docs
+- [Agent and Skill Design](agent-skill-design.md) - Keep agents and skills lightweight, navigational, and docs-backed
 - [Document Scope](doc-scope.md) - Determine document scope from the actual project boundary
 - [Phase 0 Ref Docs](ref-docs.md) - Rules for generating `specs/ref/` knowledge-base documents
 - [Pipeline Checkpoint](pipeline-checkpoint.md) - Persist stage and domain progress so `/prd-pipeline` can resume
