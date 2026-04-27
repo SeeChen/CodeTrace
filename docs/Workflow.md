@@ -129,12 +129,14 @@ Verification should include:
 ### Stage 6: Accept
 
 Purpose:
-Decide whether the current milestone is complete based on explicit evidence.
+Define milestone acceptance standards and decide whether the current milestone is complete based on explicit evidence.
 
-Main output:
+Main outputs:
+- `specs/acceptance/criteria.md`
 - `specs/acceptance/report.md`
 
 Acceptance should state:
+- milestone criteria and required evidence
 - delivered scope
 - evidence used
 - deferred or blocked items
@@ -159,6 +161,7 @@ specs/
 │   ├── test-matrix.md
 │   └── tasks.md
 └── acceptance/
+    ├── criteria.md
     └── report.md
 ```
 

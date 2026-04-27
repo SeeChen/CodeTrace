@@ -24,13 +24,15 @@ Validate that implementation outputs satisfy the build spec and support mileston
 
 1. verification evidence
 2. defect notes
-3. acceptance-facing conclusions
-4. `specs/acceptance/report.md`
+3. `specs/acceptance/criteria.md`
+4. acceptance-facing conclusions
+5. `specs/acceptance/report.md`
 
 ## Required Decisions
 
 The agent should determine:
 
+- what acceptance gates apply to the current milestone
 - whether build contracts are satisfied
 - whether important tests are present and passing
 - what risks remain open

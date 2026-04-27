@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Generate the milestone acceptance report from the delivered scope and verification evidence.
+Generate the milestone acceptance criteria and acceptance report from the delivered scope and verification evidence.
 
 ## Direct Invocation
 
@@ -14,16 +14,19 @@ Generate the milestone acceptance report from the delivered scope and verificati
 1. `docs/PRD.md`
 2. `specs/intent/brief.md`
 3. `specs/build/*`
-4. `.codex/modules/PRD-Pipeline/memory/implementation-log.md`
-5. `.codex/modules/PRD-Pipeline/memory/open-questions.md`
+4. `.codex/modules/PRD-Pipeline/skills/accept-milestone/SKILL.md`
+5. `.codex/modules/PRD-Pipeline/memory/implementation-log.md`
+6. `.codex/modules/PRD-Pipeline/memory/open-questions.md`
 
 ## Execute
 
-1. Reconstruct the delivered scope and evidence.
-2. Distinguish delivered, deferred, and blocked work.
-3. Write `specs/acceptance/report.md`.
-4. Update `pipeline-state.md`.
+1. Reconstruct the milestone scope, gates, and evidence needs.
+2. Write `specs/acceptance/criteria.md`.
+3. Distinguish delivered, deferred, and blocked work.
+4. Write `specs/acceptance/report.md`.
+5. Update `pipeline-state.md`.
 
 ## Output
 
+- `specs/acceptance/criteria.md`
 - `specs/acceptance/report.md`

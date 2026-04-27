@@ -19,6 +19,7 @@ The active target outputs are:
 - `specs/intent/brief.md`
 - `specs/architecture/SA.md`
 - `specs/build/*`
+- `specs/acceptance/criteria.md`
 - `specs/acceptance/report.md`
 - implementation and verification state tracked through workflow memory
 
@@ -53,17 +54,11 @@ The preferred command sequence is:
 
 `/prd-pipeline` remains the top-level umbrella command and should orchestrate the same stage model.
 
-## Legacy Assets
+## Legacy Migration Status
 
-The repository still contains legacy commands and skills built around:
+The legacy `ref -> global -> domains -> testing -> acceptance` orchestration path has been removed from the active module assets.
 
-`ref -> global -> domains -> testing -> acceptance`
-
-Those assets remain available during migration, but new work should prefer the active flow and active contracts described in:
-
-- `docs/Workflow.md`
-- `docs/PRD-Pipeline-Refactor-Blueprint.md`
-- `docs/PRD-Pipeline-Interface.md`
+Legacy generated `specs/` outputs may still remain in the repository for human review and migration reference, but the pipeline itself now exposes only the active delivery-oriented path.
 
 ## Design Rules
 

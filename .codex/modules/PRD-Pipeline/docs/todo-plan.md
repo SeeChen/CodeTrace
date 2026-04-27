@@ -28,8 +28,8 @@ This file records the staged migration from the legacy document-generation pipel
 | REF-006 | done | Add the new top-level command set. | `commands/pipeline-init.md`, `generate-sa.md`, `generate-spec.md`, `slice-work.md`, `implement.md`, `verify.md`, `accept.md` |
 | REF-007 | done | Add the new core skill set for intent, architecture, build spec, and task slicing. | `skills/normalize-prd/`, `generate-sa/`, `generate-build-spec/`, `slice-build-tasks/` |
 | REF-008 | done | Add or migrate the active agent set for PRD analysis, build-spec generation, coding, and QA acceptance. | `agents/*` |
-| REF-009 | todo | Decide which legacy commands and skills should remain public after migration. | updated command and skill index |
-| REF-010 | todo | Run the new workflow on the current `docs/PRD.md` and generate the first active outputs. | `specs/intent/*`, `specs/architecture/*`, `specs/build/*` |
+| REF-009 | done | Remove legacy pipeline assets from `.codex/modules/PRD-Pipeline` while preserving external reviewable documents. | cleaned command, skill, agent, docs, and rule set |
+| REF-010 | todo | Run the new workflow on the current `docs/PRD.md` and generate the first active outputs. | `specs/intent/*`, `specs/architecture/*`, `specs/build/*`, `specs/acceptance/criteria.md` |
 
 ## Current Focus
 
@@ -46,3 +46,4 @@ This file records the staged migration from the legacy document-generation pipel
 - `done` `REF-006` Added the new top-level command set for init, architecture, build spec, work slicing, implementation, verification, and acceptance.
 - `done` `REF-007` Added the new core skill set for intent normalization, system architecture generation, build-spec generation, and task slicing.
 - `done` `REF-008` Added the active agent set for PRD analysis, build-spec generation, implementation ownership, and QA acceptance.
+- `done` `REF-009` Removed legacy pipeline assets from `.codex/modules/PRD-Pipeline` and kept only the active delivery-oriented command path.

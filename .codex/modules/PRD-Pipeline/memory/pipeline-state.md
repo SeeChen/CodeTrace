@@ -3,8 +3,8 @@
 ## Status
 
 - Pipeline Status: `in_progress`
-- Current Stage: `migration_setup`
-- Last Completed Stage: `none`
+- Current Stage: `legacy_cleanup`
+- Last Completed Stage: `migration_scaffold`
 - Next Stage: `pipeline-init`
 - Active Flow Version: `refactor-v1`
 
@@ -21,7 +21,7 @@
 ## Current Focus
 
 - Land the refactored workflow assets.
-- Keep legacy assets available during migration.
+- Remove legacy pipeline assets while preserving external reviewable documents.
 - Move future work to the new stage model.
 
 ## Blockers

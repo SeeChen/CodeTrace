@@ -35,7 +35,8 @@ Generate or refresh the delivery-oriented artifact set from the PRD through acce
 1. `specs/intent/brief.md`
 2. `specs/architecture/SA.md`
 3. `specs/build/*`
-4. `specs/acceptance/report.md`
+4. `specs/acceptance/criteria.md`
+5. `specs/acceptance/report.md`
 5. updated memory state
 
 ## Stage Contract
@@ -78,10 +79,6 @@ If one area is blocked but the rest of the current stage can proceed safely, fin
 
 ## Legacy Compatibility
 
-Legacy `ref / global / domains / testing / acceptance` artifacts may still exist in the repository.
+Legacy generated `specs/` artifacts may still exist in the repository for review and migration reference.
 
-During migration:
-
-1. new commands should prefer the active structure
-2. legacy assets may be consulted as supporting material
-3. new work should not add fresh dependency on the old stage model unless required temporarily
+The pipeline module itself should not recreate or extend the removed legacy command path.

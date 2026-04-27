@@ -50,4 +50,4 @@ Long-running workflow execution must resume from repository artifacts, especiall
 
 ## Migration Note
 
-Legacy `ref / global / domains / testing` outputs may still be used as supporting migration material, but they are no longer the preferred target structure for new workflow design.
+Legacy generated `specs/` outputs may still be used as supporting review material, but the active pipeline assets no longer expose the removed legacy stage model.
