@@ -6,7 +6,7 @@
 - Current Stage: `active_output_prep`
 - Last Completed Stage: `legacy_cleanup`
 - Next Stage: `pipeline-init`
-- Active Flow Version: `refactor-v1`
+- Active Flow Version: `seechen-v1`
 
 ## Stage Checklist
 
@@ -22,6 +22,7 @@
 
 - Land the refactored workflow assets.
 - Clear old generated outputs so the next run produces only the active structure.
+- Unify the public command surface under `/seechen`.
 - Move future work to the new stage model.
 
 ## Blockers

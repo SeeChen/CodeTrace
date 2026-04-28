@@ -4,17 +4,24 @@ This document defines how the active `PRD-Pipeline` workflow should be called di
 
 ## Primary Entry Point
 
-- `/prd-pipeline`
+- `/seechen`
 
-## Preferred Stage Commands
+## Public Invocation Model
 
-- `/pipeline-init`
-- `/generate-sa`
-- `/generate-spec`
-- `/slice-work`
-- `/implement`
-- `/verify`
-- `/accept`
+Structured invocation examples:
+
+- `/seechen --run`
+- `/seechen --init`
+- `/seechen --sa`
+- `/seechen --spec`
+- `/seechen --slice`
+- `/seechen --implement`
+- `/seechen --verify`
+- `/seechen --accept`
+- `/seechen --from verify`
+- `/seechen --only spec`
+
+Natural-language invocation is also valid when the request does not match a predefined flag exactly.
 
 ## Purpose
 
@@ -52,6 +59,15 @@ The active stage order is:
 7. `accept`
 
 Another workflow may compose this pipeline only if it preserves that ordering or records an explicit reason for deviation.
+
+## Intent Routing Contract
+
+When the user calls `/seechen`:
+
+1. if the request matches a defined action, execute that action directly
+2. if the request uses control flags, apply them to the matching stage flow
+3. if the request is natural language or undefined shorthand, infer intent from the request and repository state
+4. ask for clarification only when the inferred action is too ambiguous or risky
 
 ## Resume Contract
 

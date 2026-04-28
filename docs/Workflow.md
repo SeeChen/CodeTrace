@@ -195,17 +195,22 @@ Store the user-facing workflow entry points.
 
 ## 6. Recommended Command Path
 
-The preferred new command sequence is:
+The public command surface is unified under:
 
-1. `/pipeline-init`
-2. `/generate-sa`
-3. `/generate-spec`
-4. `/slice-work`
-5. `/implement`
-6. `/verify`
-7. `/accept`
+- `/seechen`
 
-`/prd-pipeline` remains available as the umbrella entry point and should orchestrate the same stage model.
+Recommended examples:
+
+1. `/seechen --run`
+2. `/seechen --init`
+3. `/seechen --sa`
+4. `/seechen --spec`
+5. `/seechen --slice`
+6. `/seechen --implement`
+7. `/seechen --verify`
+8. `/seechen --accept`
+
+Natural-language requests routed through `/seechen` are also valid when the intent is clear enough to infer safely.
 
 ## 7. Collaboration Rules
 

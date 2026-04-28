@@ -40,19 +40,26 @@ The system is built from six orchestration building blocks:
 - `rules/`
   Non-negotiable operating constraints.
 
-## Active Commands
+## Active Command Surface
 
-The preferred command sequence is:
+The active user-facing entry point is:
 
-1. `/pipeline-init`
-2. `/generate-sa`
-3. `/generate-spec`
-4. `/slice-work`
-5. `/implement`
-6. `/verify`
-7. `/accept`
+- `/seechen`
 
-`/prd-pipeline` remains the top-level umbrella command and should orchestrate the same stage model.
+Recommended examples:
+
+1. `/seechen --run`
+2. `/seechen --init`
+3. `/seechen --sa`
+4. `/seechen --spec`
+5. `/seechen --slice`
+6. `/seechen --implement`
+7. `/seechen --verify`
+8. `/seechen --accept`
+
+Natural-language requests routed through `/seechen` are also supported.
+
+Internal stage command files may still exist as execution references, but the intended public command surface is the single `/seechen` command.
 
 ## Legacy Migration Status
 

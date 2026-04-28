@@ -1,8 +1,12 @@
 # Command: prd-pipeline
 
+Deprecated public alias. Prefer `/seechen`.
+
 ## Purpose
 
 Run the active PRD-Pipeline from PRD normalization through acceptance with minimal interruption.
+
+This file remains only as a compatibility alias. The intended public entry point is `/seechen`.
 
 The active flow is:
 
