@@ -58,7 +58,7 @@ The preferred command sequence is:
 
 The legacy `ref -> global -> domains -> testing -> acceptance` orchestration path has been removed from the active module assets.
 
-Legacy generated `specs/` outputs may still remain in the repository for human review and migration reference, but the pipeline itself now exposes only the active delivery-oriented path.
+The old generated spec set has also been cleared so the next workflow run can produce the active structure without mixing legacy outputs into the review surface.
 
 ## Design Rules
 

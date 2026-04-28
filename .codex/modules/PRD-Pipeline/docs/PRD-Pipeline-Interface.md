@@ -79,6 +79,6 @@ If one area is blocked but the rest of the current stage can proceed safely, fin
 
 ## Legacy Compatibility
 
-Legacy generated `specs/` artifacts may still exist in the repository for review and migration reference.
+The pipeline module should not recreate or extend the removed legacy command path.
 
-The pipeline module itself should not recreate or extend the removed legacy command path.
+If old spec outputs need to be preserved for archival reasons in the future, they should be stored outside the active generation path.

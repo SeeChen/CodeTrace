@@ -50,4 +50,4 @@ Long-running workflow execution must resume from repository artifacts, especiall
 
 ## Migration Note
 
-Legacy generated `specs/` outputs may still be used as supporting review material, but the active pipeline assets no longer expose the removed legacy stage model.
+Legacy pipeline assets and legacy generated spec outputs have been cleared from the active workflow path.

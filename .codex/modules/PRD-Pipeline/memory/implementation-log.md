@@ -8,3 +8,4 @@ This file records implementation-stage deviations, fix-loop notes, and milestone
 
 - `2026-04-27` Started the PRD-Pipeline refactor migration by introducing the new workflow blueprint, design rules, and active-memory structure.
 - `2026-04-28` Removed the legacy pipeline commands, skills, agents, and superseded rules from `.codex/modules/PRD-Pipeline` while keeping reviewable project documents outside `.codex`.
+- `2026-04-28` Cleared the legacy generated spec set and removed the legacy checkpoint file so the next workflow run starts from the active output model only.
