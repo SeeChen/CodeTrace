@@ -1,217 +1,242 @@
-# AI-Driven Development Workflow Specification (V1.0)
+# AI-Driven Development Workflow Specification
 
-This document defines an AI-agent-driven delivery workflow from PRD to final acceptance. It clarifies stage goals, core outputs, agent responsibilities, and collaboration rules for Python projects such as CodeTrace.
+This document defines the active PRD-to-delivery workflow for this repository.
 
-## 1. Top-Level Workflow
+The workflow is designed for AI-assisted implementation, but it is intentionally structured so that humans can review each stage without reconstructing the entire reasoning chain.
 
-Goal: establish an end-to-end path from requirements to acceptance so that every stage has a clear owner and a reviewable output.
+## 1. Primary Goal
 
-**PRD** -> **Global Blueprint** -> **Domain Spec** -> **Coding** -> **Testing** -> **Acceptance**
+The repository should be able to start from one product requirements document and move through architecture, implementation planning, coding, testing, and acceptance with explicit handoffs and low design drift.
 
----
+The active target flow is:
 
-## 2. Phase 0: Knowledge Base (`ref`)
+`PRD -> Intent Pack -> SA -> Build Spec -> Task Slices -> Coding -> Verify -> Accept`
 
-Goal: create the shared knowledge foundation for the project, including terminology, standard-library boundaries, and performance-budget framing.
+## 2. Design Principles
 
-### Core Outputs
+1. `docs/PRD.md` is the only product-level source of truth.
+2. Every downstream artifact must declare or clearly imply its upstream inputs.
+3. Architecture must be frozen before coding-ready specifications are generated.
+4. Coding should follow task slices, not broad reinterpretation of the PRD.
+5. Verification and acceptance are first-class stages, not optional cleanup.
+6. Reusable orchestration assets should remain lightweight and load deeper references only when needed.
 
-- `prd_keywords.md`: normalized project terminology such as instrumentation, trace artifacts, and comparison concepts.
-- `std_lib_research.md`: standard-library boundary research for tracing, inspection, persistence, and reporting.
-- `perf_baseline.md`: performance-budget framing and benchmark-planning guidance, including the `15%` review target.
+## 3. Active Stages
 
-### Agent Responsibilities
+### Stage 0: Normalize PRD
 
-- `Research Agent`
-  Role: analyze the PRD and extract key concepts, technical boundaries, and standard-library candidates.
-  Skills: terminology definition, standard-library research, performance-budget framing.
+Purpose:
+Create a compact intent artifact that removes ambiguity before architecture work begins.
 
----
+Main output:
+- `specs/intent/brief.md`
 
-## 3. Phase 1: Global Skeleton
+The intent pack should capture:
+- mission
+- MVP scope
+- non-goals
+- constraints
+- core entities and actions
+- acceptance framing
+- open questions
 
-Goal: remove architectural ambiguity, establish cross-domain contracts, and produce a system-level design that can guide domain expansion.
+### Stage 1: Generate SA
 
-### Core Outputs
+Purpose:
+Freeze the system architecture and major module boundaries.
 
-| Document | Focus |
-| :--- | :--- |
-| `app-business.md` | Product-level flow from trigger to capture to persistence and review. |
-| `SA.md` | High-level system architecture and major topology decisions. |
-| `project-structure.md` | Repository and package organization aligned with Google style and zero-dependency goals. |
-| `modules.md` | Global module and domain boundaries, responsibilities, and dependencies. |
-| `constraint.md` | Non-negotiable technical constraints such as failure isolation and Python `3.10+`. |
-| `API.md` | Global public contracts such as tracing entry points and hook boundaries. |
+Main output:
+- `specs/architecture/SA.md`
 
-### Agent Responsibilities
+The system architecture should define:
+- module boundaries
+- public API shape
+- extension points
+- runtime lifecycle
+- cross-cutting constraints
+- frozen decisions
 
-- `Architect Agent`
-  Role: interpret the PRD, model the business flow, and define system boundaries and module structure.
-  Skills: architecture design, dependency mapping, extensibility planning.
-- `Security & Logic Agent`
-  Role: define global constraints and identify risk boundaries.
-  Skills: failure handling, policy constraints, cross-cutting robustness rules.
-- `Liaison Agent`
-  Role: coordinate cross-domain contracts and keep API expectations consistent.
-  Skills: interface shaping, compatibility review, contract normalization.
+### Stage 2: Generate Build Spec
 
----
+Purpose:
+Convert architecture into implementation-ready planning assets.
 
-## 4. Phase 2: Domain Expansion
+Main outputs:
+- `specs/build/module-map.md`
+- `specs/build/interfaces.md`
+- `specs/build/file-plan.md`
+- `specs/build/artifact-schema.md`
+- `specs/build/failure-policy.md`
+- `specs/build/test-matrix.md`
 
-Goal: decompose the global design into implementation-ready domains and produce domain-level design artifacts that can guide coding.
+The build-spec layer should answer:
+- what to build
+- where to build it
+- how modules interact
+- how artifacts are shaped
+- how failures are isolated
+- how requirements will be tested
 
-### Core Outputs
+### Stage 3: Slice Work
 
-- `SA.md`: domain-level architecture and scope.
-- `layer-core.md`: core data structures, lifecycle state, and invariants.
-- `layer-dao.md`: persistence or storage-facing layer details where needed.
-- `layer-biz.md`: business-level coordination, policies, and workflow decisions where needed.
-- `layer-facade.md`: user-facing or cross-domain interface boundaries where needed.
+Purpose:
+Break the build spec into small coding tasks that can be implemented safely and reviewed clearly.
 
-### Agent Responsibilities
+Main output:
+- `specs/build/tasks.md`
 
-- `Domain Expert Agent`
-  Role: refine business rules, edge conditions, state handling, and domain boundaries.
-  Skills: detailed lifecycle design, exception paths, extension-point planning.
-- `Framework Agent`
-  Role: map the design into Python package and module structure.
-  Skills: package shaping, dependency control, implementation-oriented structure planning.
-- `QA Agent`
-  Role: identify testable risks and validation implications while the domain is being designed.
-  Skills: edge-case planning, failure-path coverage, performance-sensitive review.
+Task slices should define:
+- sequence
+- file ownership
+- prerequisites
+- expected outputs
+- required tests
+- acceptance notes
 
----
+### Stage 4: Coding
 
-## 5. Phase 2.5: Test Strategy
+Purpose:
+Implement the code and tests from task slices.
 
-Goal: embed test-driven planning so that the specification set is directly mappable to implementation validation.
+Main outputs:
+- `src/`
+- `tests/`
 
-### Core Outputs
+Coding should not silently redefine:
+- architecture boundaries
+- public interfaces
+- failure policies
+- artifact contracts
 
-- `engine_perf.md`: performance-sensitive scenarios such as nested tracing and compare-mode cost.
-- `coverage-plan.md` or equivalent: requirement-to-test intent mapping.
-- `failure_paths.md` or equivalent: error propagation, serialization failure, and summary-failure validation.
+If a conflict is discovered, it should be written back into workflow memory before continuing.
 
-### Agent Responsibilities
+### Stage 5: Verify
 
-- `Test Designer Agent`
-  Role: define validation intent, scenario coverage, and acceptance-relevant test plans.
-  Skills: performance test design, boundary-case planning, concurrency and robustness analysis when relevant.
+Purpose:
+Validate that the implementation matches the build spec and task expectations.
 
----
+Main outputs:
+- test execution evidence
+- defect records
+- fix-loop notes when needed
 
-## 6. Phase 3: Coding and Verification
+Verification should include:
+- unit tests
+- integration checks where relevant
+- failure-path checks
+- contract conformance review
 
-Goal: implement the code and validate it against the specification set, forming a closed loop between design and execution.
+### Stage 6: Accept
 
-### Core Outputs
+Purpose:
+Define milestone acceptance standards and decide whether the current milestone is complete based on explicit evidence.
 
-- implementation code aligned with the approved specifications
-- test results from unit, integration, and regression-oriented execution
-- fix and verification records for discovered defects
+Main outputs:
+- `specs/acceptance/criteria.md`
+- `specs/acceptance/report.md`
 
-### Agent Responsibilities
+Acceptance should state:
+- milestone criteria and required evidence
+- delivered scope
+- evidence used
+- deferred or blocked items
+- final milestone status
 
-- `Coding Agent`
-  Role: implement the code according to the specification and API layers.
-  Skills: Python implementation, constraint-aware coding, maintainable structure.
-- `Refactor Agent`
-  Role: review architecture alignment, maintainability, and quality risks.
-  Skills: static review, dependency analysis, performance and readability review.
-- `Test Runner Agent`
-  Role: execute tests, report failures, and support the fix loop.
-  Skills: Pytest execution, failure analysis, regression confirmation.
+## 4. Artifact Layout
 
----
-
-## 7. Phase 3.5: Acceptance Criteria
-
-Goal: define the final delivery gates for the current milestone so review is concrete and consistent.
-
-### Core Outputs
-
-- `criteria.md`: milestone acceptance gates covering functionality, constraints, performance, and evidence requirements.
-
-### Agent Responsibilities
-
-- `Acceptance Agent`
-  Role: define acceptance gates and verify that the delivered outputs satisfy the milestone.
-  Skills: gate definition, performance review, compliance and quality assessment.
-
----
-
-## 8. Collaboration Logic
-
-1. `Global` ownership and `Domain` ownership are intentionally separated. The global layer freezes cross-domain contracts; domain layers elaborate them.
-2. Contracts come before coding. Coding should not begin until the global API and constraints are stable enough to guide implementation.
-3. If a domain cannot be implemented from the current global architecture, the global layer must be revised explicitly instead of being bypassed silently.
-4. Documents are living artifacts. When the design changes, the affected global and domain documents must be updated together.
-
----
-
-## 9. Continuous Improvement Guidance
-
-- Keep the PRD as the primary truth source and update downstream documents when the PRD changes materially.
-- Make every stage output reviewable and acceptance-oriented rather than purely descriptive.
-- Periodically review the agent workflow itself and strengthen weak handoff points.
-
----
-
-## 10. Example Output Structure
-
-The following tree shows a representative output structure for a project like CodeTrace. It is a pattern, not a mandatory checklist.
+The active target structure is:
 
 ```text
 specs/
-├── ref/                                # Phase 0 knowledge base
-│   ├── prd_keywords.md                 # shared terminology
-│   ├── std_lib_research.md             # standard-library boundary research
-│   └── perf_baseline.md                # performance-budget framing
-├── global/                             # Phase 1 global skeleton
-│   ├── app-business.md                 # product-level flow
-│   ├── SA.md                           # high-level architecture
-│   ├── project-structure.md            # repository and package guidance
-│   ├── modules.md                      # module and domain boundaries
-│   ├── constraint.md                   # non-negotiable constraints
-│   └── API.md                          # public contracts
-├── domains/                            # Phase 2 domain expansion
-│   ├── tracing_runtime/
-│   │   ├── SA.md
-│   │   ├── layer-core.md
-│   │   ├── layer-biz.md
-│   │   └── layer-facade.md
-│   ├── persistence_artifacts/
-│   │   ├── SA.md
-│   │   ├── layer-core.md
-│   │   └── layer-dao.md
-│   └── comparison_reporting/
-│       ├── SA.md
-│       ├── layer-core.md
-│       ├── layer-biz.md
-│       └── layer-facade.md
-├── testing/                            # Phase 2.5 test strategy
-│   ├── coverage-plan.md
-│   ├── engine_perf.md
-│   └── failure_paths.md
-├── acceptance/                         # Phase 3.5 acceptance criteria
-│   └── criteria.md
-└── summary.md                          # durable document index and status
+├── intent/
+│   └── brief.md
+├── architecture/
+│   └── SA.md
+├── build/
+│   ├── module-map.md
+│   ├── interfaces.md
+│   ├── file-plan.md
+│   ├── artifact-schema.md
+│   ├── failure-policy.md
+│   ├── test-matrix.md
+│   └── tasks.md
+└── acceptance/
+    ├── criteria.md
+    └── report.md
 ```
 
-### Structure Notes
+Older `ref / global / domains / testing` outputs may still exist during migration, but the repository should gradually move toward the smaller active structure.
 
-- `ref/`: knowledge base outputs that reduce ambiguity before architecture design.
-- `global/`: global design decisions that freeze contracts and boundaries.
-- `domains/`: implementation-facing design documents for each planned domain.
-- `testing/`: validation intent mapped from requirements and design risks.
-- `acceptance/`: milestone completion gates and evidence requirements.
-- `summary.md`: durable status tracking and document navigation.
+## 5. Responsibility Model
 
-This structure preserves layered traceability from requirements to design to testing and acceptance.
+### Docs
 
----
+Store durable project truth and detailed references.
 
-## Note
+### Memory
 
-This workflow is intended for AI-assisted development and can be adapted to different project sizes and team setups. File names and exact document counts may change with project scope, but the stage intent and handoff clarity should remain stable.
+Store stage progress, frozen decisions, open questions, and implementation deviations.
+
+After every stage transition, update `.codex/modules/PRD-Pipeline/memory/pipeline-state.md` with:
+
+- stage number
+- stage name
+- stage status
+- concrete progress percentage
+- current situation
+- output or evidence
+- next action
+- blockers, if any
+
+### Rules
+
+Store non-negotiable workflow and generation constraints.
+
+### Agents
+
+Store role-based ownership and handoff behavior.
+
+### Skills
+
+Store lightweight execution guides for recurring task types.
+
+### Commands
+
+Store the user-facing workflow entry points.
+
+## 6. Recommended Command Path
+
+The public command surface is unified under:
+
+- `/seechen`
+
+Recommended examples:
+
+1. `/seechen --run`
+2. `/seechen --init`
+3. `/seechen --sa`
+4. `/seechen --spec`
+5. `/seechen --slice`
+6. `/seechen --implement`
+7. `/seechen --verify`
+8. `/seechen --accept`
+
+Natural-language requests routed through `/seechen` are also valid when the intent is clear enough to infer safely.
+
+## 7. Collaboration Rules
+
+1. Do not skip architecture and go directly from the PRD to code.
+2. Do not let coding agents redefine frozen contracts silently.
+3. Keep agents and skills compact; deeper material belongs in `docs/`.
+4. Preserve open questions rather than hiding uncertainty.
+5. Keep stage outputs reviewable and implementation-facing.
+
+## 8. Migration Note
+
+This workflow replaces the older emphasis on:
+
+`PRD -> ref -> global -> domains -> testing -> acceptance`
+
+The older outputs are still useful during migration, but the active model now optimizes for:
+
+`PRD -> intent -> architecture -> build -> implementation -> verification -> acceptance`

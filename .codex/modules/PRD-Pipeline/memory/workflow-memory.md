@@ -1,51 +1,53 @@
 # Workflow Memory
 
-## Core Principle
+## Active Principle
 
-The repository follows a document-first AI workflow:
+The repository now follows a delivery-oriented PRD workflow:
 
-`PRD -> ref -> global -> domains -> testing -> coding`
+`PRD -> intent -> architecture -> build -> tasks -> coding -> verify -> accept`
 
 ## Stable Rules
 
-1. PRD is the primary source of truth.
-2. Each downstream phase consumes the documents from the previous phase.
-3. Coding should not begin before global API and constraints are stable.
-4. Open questions must be written down instead of silently guessed.
+1. `docs/PRD.md` is the primary product source of truth.
+2. Architecture must be frozen before build-spec generation.
+3. Build specs must be frozen before coding starts.
+4. Coding should follow task slices instead of broad PRD reinterpretation.
+5. Open questions must be written down instead of silently guessed.
+6. Agents and skills should stay lightweight and load deeper docs only on demand.
 
-## Current Reusable Assets
+## Active Reusable Assets
 
-- `Orchestrator Agent`
-- `/prd-pipeline` command
-- `generate-ref` skill
-- `plan-doc-structure` skill
-- `generate-global` skill
-- `plan-domains` skill
-- `generate-domain-spec` skill
-- `generate-test-design` skill
-- `generate-acceptance` skill
-- `plan-docs` command
-- `PRD-Pipeline` checkpoint
-- `ref-docs` rule
-- `Research Agent`
-- `generate-ref` command
+- `/prd-pipeline`
+- `/pipeline-init`
+- `/generate-sa`
+- `/generate-spec`
+- `/slice-work`
+- `/implement`
+- `/verify`
+- `/accept`
+- `PRD-Pipeline Refactor Blueprint`
+- `Agent and Skill Design` rule
+- workflow memory files under `.codex/modules/PRD-Pipeline/memory/`
 
-## Intended Expansion Order
+## Active Output Focus
 
-1. generate `specs/ref/`
-2. plan the document tree
-3. generate `specs/global/`
-4. plan domains
-5. generate one domain at a time
-6. generate testing documents
-7. generate acceptance criteria
+The primary target outputs are:
+
+1. `specs/intent/brief.md`
+2. `specs/architecture/SA.md`
+3. `specs/build/*`
+4. `specs/build/tasks.md`
+5. `specs/acceptance/report.md`
 
 ## Resume Principle
 
 Long-running workflow execution must resume from repository artifacts, especially:
 
-- `.codex/modules/PRD-Pipeline/memory/prd-pipeline-checkpoint.md`
-- `specs/summary.md`
-- generated specification documents
+- `.codex/modules/PRD-Pipeline/memory/pipeline-state.md`
+- `.codex/modules/PRD-Pipeline/memory/frozen-decisions.md`
+- `.codex/modules/PRD-Pipeline/memory/open-questions.md`
+- `.codex/modules/PRD-Pipeline/memory/implementation-log.md`
 
+## Migration Note
 
+Legacy pipeline assets and legacy generated spec outputs have been cleared from the active workflow path.
