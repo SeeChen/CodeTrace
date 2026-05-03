@@ -118,6 +118,14 @@ Before doing any work:
 3. resume from the first incomplete stage when the request implies continuation
 4. record blockers instead of silently stopping
 
+After each stage transition:
+
+1. update `memory/pipeline-state.md`
+2. record the active stage number, stage name, status, progress, current situation, output evidence, and next action
+3. mark completed stages as `completed` with `100%` progress
+4. mark blocked stages as `blocked` and write the blocker plus recovery action
+5. keep `Overall Progress`, `Current Stage`, `Last Completed Stage`, and `Next Stage` aligned
+
 ## Guardrails
 
 - Do not invent a workflow stage that is not defined.

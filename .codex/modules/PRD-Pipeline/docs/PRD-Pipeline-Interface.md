@@ -80,6 +80,36 @@ The workflow must:
 5. store unresolved issues in `memory/open-questions.md`
 6. store implementation deviations and fix-loop notes in `memory/implementation-log.md`
 
+## State Update Contract
+
+After every stage transition, the workflow must update `memory/pipeline-state.md` with a concrete status snapshot.
+
+Each update must record:
+
+1. stage number
+2. stage name
+3. stage status: `pending`, `in_progress`, `completed`, or `blocked`
+4. stage progress as a concrete percentage
+5. current situation in one short factual sentence
+6. output or evidence produced by the stage
+7. next action
+8. blockers, if any
+
+When a stage completes:
+
+1. mark that stage as `completed` with `100%` progress
+2. move `Last Completed Stage` to the completed stage
+3. move `Current Stage` and `Next Stage` to the next incomplete stage
+4. update `Overall Progress`
+5. update `Current Stage Detail`
+
+When a stage is blocked:
+
+1. mark that stage as `blocked`
+2. keep `Current Stage` on the blocked stage
+3. record the blocker under `Blockers`
+4. write the next recovery action clearly
+
 ## Blocking Conditions
 
 The workflow may ask for clarification only when:

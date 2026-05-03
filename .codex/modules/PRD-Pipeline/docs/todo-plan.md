@@ -30,13 +30,14 @@ This file records the staged migration from the legacy document-generation pipel
 | REF-008 | done | Add or migrate the active agent set for PRD analysis, build-spec generation, coding, and QA acceptance. | `agents/*` |
 | REF-009 | done | Remove legacy pipeline assets from `.codex/modules/PRD-Pipeline` while preserving external reviewable documents. | cleaned command, skill, agent, docs, and rule set |
 | REF-010 | done | Clear the legacy generated spec set and legacy checkpoint so the active workflow has a clean output surface. | cleaned `specs/` legacy files and removed legacy checkpoint |
-| REF-011 | todo | Run the new workflow on the current `docs/PRD.md` and generate the first active outputs. | `specs/intent/*`, `specs/architecture/*`, `specs/build/*`, `specs/acceptance/criteria.md` |
+| REF-011 | in_progress | Run the new workflow on the current `docs/PRD.md` and generate the first active outputs. | `specs/intent/*`, `specs/architecture/*`, `specs/build/*`, `specs/acceptance/criteria.md` |
 | REF-012 | done | Unify the public command entry under `/seechen` with flag routing and natural-language intent handling. | `commands/seechen.md` and updated interface docs |
 
 ## Current Focus
 
-- The workflow scaffolding is being migrated first.
-- Output generation under the new structure remains the next milestone.
+- Historical generated outputs have been cleared.
+- Stage 0 has been rerun and `specs/intent/brief.md` is the only active generated output.
+- The next active step is `generate-sa`.
 
 ## Progress Log
 
@@ -51,3 +52,5 @@ This file records the staged migration from the legacy document-generation pipel
 - `done` `REF-009` Removed legacy pipeline assets from `.codex/modules/PRD-Pipeline` and kept only the active delivery-oriented command path.
 - `done` `REF-010` Cleared the old generated spec tree and removed the legacy checkpoint so the next run can write only active outputs.
 - `done` `REF-012` Added `/seechen` as the unified public command entry with direct flag routing and natural-language fallback behavior.
+- `in_progress` `REF-011` Historical generated outputs were cleared, then the active workflow was restarted from Stage 0.
+- `in_progress` `REF-011` Completed the rerun `init` stage by writing `specs/intent/brief.md`; `generate-sa` is next.

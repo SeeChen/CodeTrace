@@ -177,6 +177,17 @@ Store durable project truth and detailed references.
 
 Store stage progress, frozen decisions, open questions, and implementation deviations.
 
+After every stage transition, update `.codex/modules/PRD-Pipeline/memory/pipeline-state.md` with:
+
+- stage number
+- stage name
+- stage status
+- concrete progress percentage
+- current situation
+- output or evidence
+- next action
+- blockers, if any
+
 ### Rules
 
 Store non-negotiable workflow and generation constraints.
