@@ -13,7 +13,9 @@ Verify the implementation against the build spec and task expectations.
 
 1. `specs/build/test-matrix.md`
 2. `specs/build/tasks.md`
-3. `.codex/modules/PRD-Pipeline/memory/implementation-log.md`
+3. `.codex/modules/PRD-Pipeline/agents/qa-acceptance-agent.md`
+4. `.codex/modules/PRD-Pipeline/skills/verify-build/SKILL.md`
+5. `.codex/modules/PRD-Pipeline/memory/implementation-log.md`
 
 ## Execute
 

@@ -13,3 +13,4 @@ This file records implementation-stage deviations, fix-loop notes, and milestone
 - `2026-04-28` Completed `/seechen --sa` and generated `specs/architecture/SA.md` as the frozen architecture layer for downstream build-spec generation.
 - `2026-04-28` Completed `/seechen --spec` and generated the build-spec set under `specs/build/`.
 - `2026-05-03` Cleared historical generated outputs under `specs/`, reran Stage 0, and regenerated `specs/intent/brief.md` as the only active generated output.
+- `2026-05-04` Deleted and regenerated `specs/intent/brief.md` through the enhanced Stage 0 contract, including deterministic file schema, failure isolation policy, MVP decisions, and contextual AI guidance.

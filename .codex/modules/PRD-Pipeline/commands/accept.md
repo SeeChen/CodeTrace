@@ -14,9 +14,10 @@ Generate the milestone acceptance criteria and acceptance report from the delive
 1. `docs/PRD.md`
 2. `specs/intent/brief.md`
 3. `specs/build/*`
-4. `.codex/modules/PRD-Pipeline/skills/accept-milestone/SKILL.md`
-5. `.codex/modules/PRD-Pipeline/memory/implementation-log.md`
-6. `.codex/modules/PRD-Pipeline/memory/open-questions.md`
+4. `.codex/modules/PRD-Pipeline/agents/qa-acceptance-agent.md`
+5. `.codex/modules/PRD-Pipeline/skills/accept-milestone/SKILL.md`
+6. `.codex/modules/PRD-Pipeline/memory/implementation-log.md`
+7. `.codex/modules/PRD-Pipeline/memory/open-questions.md`
 
 ## Execute
 

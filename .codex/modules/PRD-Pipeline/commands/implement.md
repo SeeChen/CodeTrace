@@ -13,8 +13,10 @@ Implement the current build tasks into code and tests.
 
 1. `specs/build/tasks.md`
 2. `specs/build/*`
-3. `.codex/modules/PRD-Pipeline/memory/frozen-decisions.md`
-4. `.codex/modules/PRD-Pipeline/memory/implementation-log.md`
+3. `.codex/modules/PRD-Pipeline/agents/coding-agent.md`
+4. `.codex/modules/PRD-Pipeline/skills/implement-from-task/SKILL.md`
+5. `.codex/modules/PRD-Pipeline/memory/frozen-decisions.md`
+6. `.codex/modules/PRD-Pipeline/memory/implementation-log.md`
 
 ## Execute
 

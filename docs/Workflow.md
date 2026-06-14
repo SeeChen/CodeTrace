@@ -36,9 +36,15 @@ The intent pack should capture:
 - MVP scope
 - non-goals
 - constraints
+- deterministic file schema
+- failure isolation policy
+- MVP decisions
 - core entities and actions
+- contextual awareness for downstream AI agents
 - acceptance framing
 - open questions
+
+For local artifact workflows, the intent pack must turn broad file-system and failure-handling requirements into concrete execution constraints before architecture generation. This includes deterministic artifact topology, explicit infrastructure failure isolation, conservative MVP defaults for resolvable questions, and testing/docstring expectations for downstream implementation.
 
 ### Stage 1: Generate SA
 

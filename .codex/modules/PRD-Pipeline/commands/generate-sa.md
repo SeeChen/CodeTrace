@@ -13,8 +13,9 @@ Generate the active system architecture layer from the normalized intent pack.
 
 1. `specs/intent/brief.md`
 2. `docs/Workflow.md`
-3. `.codex/modules/PRD-Pipeline/skills/generate-sa/SKILL.md`
-4. `.codex/modules/PRD-Pipeline/memory/frozen-decisions.md`
+3. `.codex/modules/PRD-Pipeline/agents/architect-agent.md`
+4. `.codex/modules/PRD-Pipeline/skills/generate-sa/SKILL.md`
+5. `.codex/modules/PRD-Pipeline/memory/frozen-decisions.md`
 
 ## Execute
 

@@ -23,7 +23,7 @@
 
 | Stage | Name | Status | Progress | Current Situation | Output / Evidence | Next Action |
 | --- | --- | --- | --- | --- | --- | --- |
-| 0 | Pipeline Init | `completed` | `100%` | Intent pack has been regenerated from the PRD after clearing historical generated outputs. | `specs/intent/brief.md` | none |
+| 0 | Pipeline Init | `completed` | `100%` | Intent pack has been regenerated through the enhanced Stage 0 contract. | `specs/intent/brief.md` | none |
 | 1 | Generate SA | `in_progress` | `0%` | Architecture generation is the next active stage. | pending `specs/architecture/SA.md` | generate system architecture from the intent brief |
 | 2 | Generate Build Spec | `pending` | `0%` | Waiting for frozen architecture. | pending `specs/build/*` | start after Stage 1 completes |
 | 3 | Slice Work | `pending` | `0%` | Waiting for build-spec outputs. | pending `specs/build/tasks.md` | start after Stage 2 completes |
@@ -37,15 +37,15 @@
 - Stage Name: `Generate SA`
 - Stage Status: `in_progress`
 - Stage Progress: `0%`
-- Current Situation: `Stage 0 is complete and the intent brief is ready for architecture generation.`
+- Current Situation: `Stage 0 is complete and the enhanced intent brief is ready for architecture generation.`
 - Active Inputs: `specs/intent/brief.md`
 - Expected Outputs: `specs/architecture/SA.md`
 - Next Action: `Run the generate-sa stage and update this file after completion.`
 
 ## Current Focus
 
-- Stage 0 is complete and `specs/intent/brief.md` has been regenerated.
-- Historical generated outputs were cleared before rerunning the first stage.
+- Stage 0 is complete and `specs/intent/brief.md` has been regenerated through the enhanced brief contract.
+- The brief now includes deterministic file schema, failure isolation policy, MVP decisions, contextual AI guidance, and reduced open questions.
 - The next active step is system architecture generation.
 - Keep memory files aligned with each completed stage.
 

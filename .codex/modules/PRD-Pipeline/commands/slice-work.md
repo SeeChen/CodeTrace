@@ -12,9 +12,10 @@ Convert the build-spec layer into implementation task slices.
 ## Read First
 
 1. `specs/build/*`
-2. `.codex/modules/PRD-Pipeline/skills/slice-build-tasks/SKILL.md`
-3. `.codex/modules/PRD-Pipeline/memory/frozen-decisions.md`
-4. `.codex/modules/PRD-Pipeline/memory/open-questions.md`
+2. `.codex/modules/PRD-Pipeline/agents/spec-builder-agent.md`
+3. `.codex/modules/PRD-Pipeline/skills/slice-build-tasks/SKILL.md`
+4. `.codex/modules/PRD-Pipeline/memory/frozen-decisions.md`
+5. `.codex/modules/PRD-Pipeline/memory/open-questions.md`
 
 ## Execute
 

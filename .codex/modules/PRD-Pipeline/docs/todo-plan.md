@@ -36,7 +36,7 @@ This file records the staged migration from the legacy document-generation pipel
 ## Current Focus
 
 - Historical generated outputs have been cleared.
-- Stage 0 has been rerun and `specs/intent/brief.md` is the only active generated output.
+- Stage 0 has been rerun through the enhanced brief contract and `specs/intent/brief.md` is the only active generated output.
 - The next active step is `generate-sa`.
 
 ## Progress Log
@@ -54,3 +54,4 @@ This file records the staged migration from the legacy document-generation pipel
 - `done` `REF-012` Added `/seechen` as the unified public command entry with direct flag routing and natural-language fallback behavior.
 - `in_progress` `REF-011` Historical generated outputs were cleared, then the active workflow was restarted from Stage 0.
 - `in_progress` `REF-011` Completed the rerun `init` stage by writing `specs/intent/brief.md`; `generate-sa` is next.
+- `in_progress` `REF-011` Deleted and regenerated `specs/intent/brief.md` using the enhanced Stage 0 contract with deterministic schema, failure isolation, MVP decisions, and contextual AI guidance.
