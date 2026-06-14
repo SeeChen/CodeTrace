@@ -1,42 +1,40 @@
-# Rule 9: Document Scope from Project Boundary
+# Rule: Artifact Scope from Project Boundary
 
-This rule defines how AI agents should determine which documents belong in the specification tree.
+This rule defines how AI agents should decide which artifacts to generate in the active delivery pipeline.
 
 ## Purpose
 
-The example workflow and directory structure are reference patterns. AI agents must decide the actual document set from the current project's PRD and boundary conditions.
+The active flow `PRD -> intent -> architecture -> build -> tasks -> coding -> verify -> accept` and its artifact layout are reference patterns. AI agents must decide the actual artifact set from the current project's PRD and intent brief, not from a fixed checklist.
 
 ## Guidelines
 
-- Read the PRD before choosing the document set
+- Read `docs/PRD.md` and `specs/intent/brief.md` before choosing the artifact set
 - Identify project scale, system shape, complexity drivers, and delivery goals first
-- Use the workflow example as a baseline pattern, not as a fixed checklist
-- Create only the documents that the current project can justify
-- Expand the document set when the project clearly requires more structure
-- Merge or omit documents when a smaller project does not justify full separation
+- Use the workflow's target layout as a baseline pattern, not as a mandatory checklist
+- Generate only the build-spec artifacts the current project can justify
+- Expand the build-spec set when the project clearly requires more structure
+- Merge or omit artifacts when a smaller project does not justify full separation
 
 ## Required Questions
 
-Before planning documents, answer:
+Before generating an artifact set, answer:
 
 1. What kind of system is this?
 2. How complex is the implementation surface?
-3. Which constraints or risks justify additional documents?
-4. Which example documents are unnecessary for the current phase?
-5. Which missing documents are needed because of the actual project shape?
+3. Which constraints or risks justify additional artifacts?
+4. Which baseline artifacts are unnecessary for the current milestone?
+5. Which missing artifacts are needed because of the actual project shape?
 
 ## Expected Output Behavior
 
-- Mark documents as required, optional, deferred, or unnecessary
-- Explain why each major document exists
-- Explain why each omitted or merged document is acceptable
-- Keep downstream document generation traceable to the PRD and upstream specs
+- Mark artifacts as required, optional, deferred, or unnecessary
+- Explain why each major artifact exists
+- Explain why each omitted or merged artifact is acceptable
+- Keep every generated artifact traceable to upstream inputs (`brief.md`, `SA.md`, `specs/build/*`)
 
 ## Anti-Patterns
 
-- Do not copy the example document tree without analysis
-- Do not generate documents only because they exist in the example workflow
-- Do not omit important documents just to keep the tree small
-- Do not add domain documents before global boundaries are clear
-
-
+- Do not copy the target artifact layout without analysis
+- Do not generate artifacts only because they appear in the reference layout
+- Do not omit important artifacts just to keep the tree small
+- Do not generate build-spec detail before the architecture in `SA.md` is frozen

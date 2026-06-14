@@ -13,8 +13,9 @@ Generate the build-spec layer from the normalized intent pack and system archite
 
 1. `specs/intent/brief.md`
 2. `specs/architecture/SA.md`
-3. `.codex/modules/PRD-Pipeline/skills/generate-build-spec/SKILL.md`
-4. `.codex/modules/PRD-Pipeline/memory/frozen-decisions.md`
+3. `.codex/modules/PRD-Pipeline/agents/spec-builder-agent.md`
+4. `.codex/modules/PRD-Pipeline/skills/generate-build-spec/SKILL.md`
+5. `.codex/modules/PRD-Pipeline/memory/frozen-decisions.md`
 
 ## Execute
 

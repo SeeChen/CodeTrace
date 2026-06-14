@@ -1,37 +1,38 @@
-# Rule 10: Summary Sync After Document Changes
+# Rule: Summary Sync After Each Stage
 
-This rule defines how status tracking should be updated after document-generation work.
+This rule defines how workflow state must be updated after each completed stage.
 
 ## Purpose
 
-The document system must be resumable. After each meaningful document-generation task, the repository should record progress so future runs continue from the current state instead of starting over.
+The pipeline must be resumable. After each completed stage, the repository should record progress so future runs continue from the current state instead of starting over.
 
 ## Guidelines
 
-- Update the relevant tracking document after each completed todo or generation step
-- Record completed, in-progress, and pending work clearly
-- Make the next recommended step obvious
+- Update workflow state after each completed stage, not only at the end of a run
+- Record completed, in-progress, and pending stages clearly
+- Make the next recommended stage obvious
 - Keep progress notes concise and factual
-- Prefer a single durable status document over scattered ad hoc notes
+- Prefer durable workflow-state files over scattered ad hoc notes
 
-## Preferred Tracking Targets
+## Tracking Targets
 
-- `.codex/modules/PRD-Pipeline/docs/todo-plan.md`
-- `specs/summary.md`
+- `.codex/modules/PRD-Pipeline/memory/pipeline-state.md` (primary stage state)
+- `.codex/modules/PRD-Pipeline/memory/frozen-decisions.md` (frozen contracts)
+- `.codex/modules/PRD-Pipeline/memory/open-questions.md` (unresolved choices)
+- `.codex/modules/PRD-Pipeline/memory/implementation-log.md` (deviations and fix-loop notes)
+- `.codex/modules/PRD-Pipeline/docs/todo-plan.md` (migration and task progress)
 
 ## Required Behavior
 
-After completing a task, record:
+After completing a stage, record:
 
 1. what was completed
-2. where the output was written
-3. what remains next
+2. where the output or evidence was written
+3. what stage comes next
 4. any open questions or blockers
 
 ## Anti-Patterns
 
 - Do not leave progress only in commit messages
-- Do not mark work as done before outputs exist
-- Do not restart planning from scratch when a current status file already exists
-
-
+- Do not mark a stage as done before its outputs exist
+- Do not restart planning from scratch when `pipeline-state.md` already records the current state
