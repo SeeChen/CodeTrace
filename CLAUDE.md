@@ -29,7 +29,7 @@ The unified entry point is **`/seechen`** (e.g. `/seechen --run`, `/seechen --sa
 - `.claude/agents/` — stage role owners
 - `.claude/rules/` — non-negotiable workflow and generation constraints
 - `.claude/memory/` — durable state: `pipeline-state.md`, `frozen-decisions.md`, `open-questions.md`, `implementation-log.md`
-- `.claude/docs/` — pipeline interface, refactor blueprint, migration todo
+- `.claude/docs/` — pipeline interface and calling contract
 - `specs/` — generated pipeline outputs
 
 ## Operating Rules

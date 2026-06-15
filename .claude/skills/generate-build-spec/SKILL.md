@@ -22,8 +22,7 @@ Use this skill to turn architecture into implementation-ready contracts.
 
 1. `specs/intent/brief.md`
 2. `specs/architecture/SA.md`
-3. `.claude/docs/PRD-Pipeline-Refactor-Blueprint.md`
-4. `.claude/memory/frozen-decisions.md`
+3. `.claude/memory/frozen-decisions.md`
 
 ## Write
 

@@ -21,9 +21,8 @@ Use this skill to convert the build-spec layer into coding-ready task slices.
 ## Read First
 
 1. `specs/build/*`
-2. `.claude/docs/PRD-Pipeline-Refactor-Blueprint.md`
-3. `.claude/memory/frozen-decisions.md`
-4. `.claude/memory/open-questions.md`
+2. `.claude/memory/frozen-decisions.md`
+3. `.claude/memory/open-questions.md`
 
 ## Write
 

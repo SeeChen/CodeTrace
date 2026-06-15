@@ -2,7 +2,7 @@
 
 ## Active Principle
 
-The repository now follows a delivery-oriented PRD workflow:
+The repository follows a delivery-oriented PRD workflow:
 
 `PRD -> intent -> architecture -> build -> tasks -> coding -> verify -> accept`
 
@@ -17,16 +17,10 @@ The repository now follows a delivery-oriented PRD workflow:
 
 ## Active Reusable Assets
 
-- `/prd-pipeline`
-- `/pipeline-init`
-- `/generate-sa`
-- `/generate-spec`
-- `/slice-work`
-- `/implement`
-- `/verify`
-- `/accept`
-- `PRD-Pipeline Refactor Blueprint`
-- `Agent and Skill Design` rule
+- `/seechen` (unified entry point; `/prd-pipeline` is a deprecated alias)
+- stage commands: `/pipeline-init`, `/generate-sa`, `/generate-spec`, `/slice-work`, `/implement`, `/verify`, `/accept`
+- skills: `normalize-prd`, `generate-sa`, `generate-build-spec`, `slice-build-tasks`, `implement-from-task`, `verify-build`, `accept-milestone`
+- agents: `prd-analyst-agent`, `architect-agent`, `spec-builder-agent`, `coding-agent`, `qa-acceptance-agent`
 - workflow memory files under `.claude/memory/`
 
 ## Active Output Focus
@@ -37,7 +31,7 @@ The primary target outputs are:
 2. `specs/architecture/SA.md`
 3. `specs/build/*`
 4. `specs/build/tasks.md`
-5. `specs/acceptance/report.md`
+5. `specs/acceptance/criteria.md` and `specs/acceptance/report.md`
 
 ## Resume Principle
 
@@ -47,7 +41,3 @@ Long-running workflow execution must resume from repository artifacts, especiall
 - `.claude/memory/frozen-decisions.md`
 - `.claude/memory/open-questions.md`
 - `.claude/memory/implementation-log.md`
-
-## Migration Note
-
-Legacy pipeline assets and legacy generated spec outputs have been cleared from the active workflow path.

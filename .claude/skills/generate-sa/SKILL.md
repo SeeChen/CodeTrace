@@ -22,8 +22,7 @@ Use this skill to produce the active architecture layer.
 
 1. `specs/intent/brief.md`
 2. `docs/Workflow.md`
-3. `.claude/docs/PRD-Pipeline-Refactor-Blueprint.md`
-4. `.claude/memory/frozen-decisions.md`
+3. `.claude/memory/frozen-decisions.md`
 
 ## Write
 

@@ -23,10 +23,9 @@ Convert the normalized intent pack into a frozen system architecture that downst
 
 1. `specs/intent/brief.md`
 2. `docs/Workflow.md`
-3. `.claude/docs/PRD-Pipeline-Refactor-Blueprint.md`
-4. `.claude/skills/generate-sa/SKILL.md`
-5. `.claude/memory/frozen-decisions.md`
-6. `.claude/memory/open-questions.md`
+3. `.claude/skills/generate-sa/SKILL.md`
+4. `.claude/memory/frozen-decisions.md`
+5. `.claude/memory/open-questions.md`
 
 ## Primary Outputs
 

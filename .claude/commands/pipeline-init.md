@@ -18,10 +18,9 @@ Normalize the PRD into the active intent pack used by the rest of the workflow.
 
 1. `docs/PRD.md`
 2. `docs/Workflow.md`
-3. `.claude/docs/PRD-Pipeline-Refactor-Blueprint.md`
-4. `.claude/agents/prd-analyst-agent.md`
-5. `.claude/skills/normalize-prd/SKILL.md`
-6. `.claude/rules/agent-skill-design.md`
+3. `.claude/agents/prd-analyst-agent.md`
+4. `.claude/skills/normalize-prd/SKILL.md`
+5. `.claude/rules/agent-skill-design.md`
 
 ## Execute
 

@@ -31,11 +31,10 @@ Generate or refresh the delivery-oriented artifact set from the PRD through acce
 
 1. `docs/PRD.md`
 2. `docs/Workflow.md`
-3. `.claude/docs/PRD-Pipeline-Refactor-Blueprint.md`
-4. `.claude/memory/pipeline-state.md`
-5. `.claude/memory/frozen-decisions.md`
-6. `.claude/memory/open-questions.md`
-7. `.claude/memory/implementation-log.md`
+3. `.claude/memory/pipeline-state.md`
+4. `.claude/memory/frozen-decisions.md`
+5. `.claude/memory/open-questions.md`
+6. `.claude/memory/implementation-log.md`
 
 ## Active Outputs
 
@@ -44,7 +43,7 @@ Generate or refresh the delivery-oriented artifact set from the PRD through acce
 3. `specs/build/*`
 4. `specs/acceptance/criteria.md`
 5. `specs/acceptance/report.md`
-5. updated memory state
+6. updated memory state
 
 ## Stage Contract
 

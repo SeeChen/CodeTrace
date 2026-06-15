@@ -21,8 +21,7 @@ Turn the repository PRD into a compact, implementation-relevant intent pack that
 
 1. `docs/PRD.md`
 2. `docs/Workflow.md`
-3. `.claude/docs/PRD-Pipeline-Refactor-Blueprint.md`
-4. `.claude/memory/open-questions.md`
+3. `.claude/memory/open-questions.md`
 
 ## Primary Outputs
 

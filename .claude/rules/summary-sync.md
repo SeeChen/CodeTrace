@@ -20,7 +20,6 @@ The pipeline must be resumable. After each completed stage, the repository shoul
 - `.claude/memory/frozen-decisions.md` (frozen contracts)
 - `.claude/memory/open-questions.md` (unresolved choices)
 - `.claude/memory/implementation-log.md` (deviations and fix-loop notes)
-- `.claude/docs/todo-plan.md` (migration and task progress)
 
 ## Required Behavior
 

@@ -16,7 +16,6 @@ CodeTrace-AI explores a modular workflow in which AI agents collaborate through 
 - [Product Requirements Document (PRD)](docs/PRD.md)
 - [AI Development Workflow](docs/Workflow.md)
 - [PRD-Pipeline Interface](.claude/docs/PRD-Pipeline-Interface.md)
-- [Document System Todo Plan](.claude/docs/todo-plan.md)
 
 ## Getting Started
 
@@ -39,8 +38,8 @@ This repository is designed for AI-assisted development where the document syste
    - `rules/` for repository constraints
    - `memory/` for stable project context
    - `docs/` for internal orchestration and planning documents
-4. Generate `specs/ref/`, `specs/global/`, `specs/domains/`, `specs/testing/`, and `specs/acceptance/` in stages.
-5. Use `/prd-pipeline` when you want the full document workflow to run end to end with checkpoint-based resume.
+1. Generate `specs/ref/`, `specs/global/`, `specs/domains/`, `specs/testing/`, and `specs/acceptance/` in stages.
+2. Use `/prd-pipeline` when you want the full document workflow to run end to end with checkpoint-based resume.
 
 ## Project Structure
 

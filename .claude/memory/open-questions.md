@@ -6,5 +6,4 @@ This file records unresolved design or implementation questions that should rema
 
 ## Current Open Questions
 
-1. Should the first implementation reserve configuration fields for a future strict comparison mode?
-2. Should `trace_name` sanitization preserve full dotted paths or normalize them into shorter file-system-safe names?
+- None yet. Open questions will be recorded here as the pipeline stages run.

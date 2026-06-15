@@ -23,9 +23,8 @@ Translate the frozen architecture into implementation-ready build contracts and 
 
 1. `specs/intent/brief.md`
 2. `specs/architecture/SA.md`
-3. `.claude/docs/PRD-Pipeline-Refactor-Blueprint.md`
-4. `.claude/memory/frozen-decisions.md`
-5. `.claude/memory/open-questions.md`
+3. `.claude/memory/frozen-decisions.md`
+4. `.claude/memory/open-questions.md`
 
 ## Primary Outputs
 

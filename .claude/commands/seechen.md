@@ -43,12 +43,11 @@ Natural-language examples:
 1. `docs/PRD.md`
 2. `docs/Workflow.md`
 3. `.claude/docs/PRD-Pipeline-Interface.md`
-4. `.claude/docs/PRD-Pipeline-Refactor-Blueprint.md`
-5. `.claude/rules/rules.md`
-6. `.claude/memory/pipeline-state.md`
-7. `.claude/memory/frozen-decisions.md`
-8. `.claude/memory/open-questions.md`
-9. `.claude/memory/implementation-log.md`
+4. `.claude/rules/rules.md`
+5. `.claude/memory/pipeline-state.md`
+6. `.claude/memory/frozen-decisions.md`
+7. `.claude/memory/open-questions.md`
+8. `.claude/memory/implementation-log.md`
 
 ## Routing Model
 
