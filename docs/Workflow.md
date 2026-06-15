@@ -183,7 +183,7 @@ Store durable project truth and detailed references.
 
 Store stage progress, frozen decisions, open questions, and implementation deviations.
 
-After every stage transition, update `.codex/modules/PRD-Pipeline/memory/pipeline-state.md` with:
+After every stage transition, update `.claude/memory/pipeline-state.md` with:
 
 - stage number
 - stage name

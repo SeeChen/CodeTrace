@@ -15,9 +15,8 @@ CodeTrace-AI explores a modular workflow in which AI agents collaborate through 
 
 - [Product Requirements Document (PRD)](docs/PRD.md)
 - [AI Development Workflow](docs/Workflow.md)
-- [PRD to Coding Orchestration](.codex/modules/PRD-Pipeline/docs/PRD-to-Coding-Orchestration.md)
-- [PRD-Pipeline Interface](.codex/modules/PRD-Pipeline/docs/PRD-Pipeline-Interface.md)
-- [Document System Todo Plan](.codex/modules/PRD-Pipeline/docs/todo-plan.md)
+- [PRD-Pipeline Interface](.claude/docs/PRD-Pipeline-Interface.md)
+- [Document System Todo Plan](.claude/docs/todo-plan.md)
 
 ## Getting Started
 
@@ -32,8 +31,8 @@ This repository is designed for AI-assisted development where the document syste
 ### Usage
 
 1. Read the [PRD](docs/PRD.md) and [Workflow](docs/Workflow.md).
-2. Use `docs/PRD.md`, `docs/Workflow.md`, and `.codex/modules/PRD-Pipeline/docs/` together to understand the intended document pipeline.
-3. Use the reusable assets under `.codex/modules/PRD-Pipeline/`:
+2. Use `docs/PRD.md`, `docs/Workflow.md`, and `.claude/docs/` together to understand the intended document pipeline.
+3. Use the reusable assets under `.claude/`:
    - `agents/` for system-prompt roles
    - `skills/` for task-specific generation workflows
    - `commands/` for reusable task entry points
@@ -81,7 +80,7 @@ Implementation code generation is intentionally downstream from these document p
 
 Contributions should preserve the AI-first workflow. Please:
 
-1. Follow the rules in `.codex/modules/PRD-Pipeline/rules/`.
+1. Follow the rules in `.claude/rules/`.
 2. Keep reusable system-constraint files in English unless there is a documented exception.
 3. Use a task-appropriate branch instead of reusing an unrelated branch.
 4. Update progress-tracking documents when document-generation work is completed.
