@@ -44,3 +44,11 @@ logs/
 # Temporary files
 *.tmp
 *.temp
+
+# Test & coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# CodeTrace runtime output
+.codetrace/
