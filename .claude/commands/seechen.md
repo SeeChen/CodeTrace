@@ -27,6 +27,7 @@ Structured examples:
 - `/seechen --implement`
 - `/seechen --verify`
 - `/seechen --accept`
+- `/seechen --converge`
 - `/seechen --from verify`
 - `/seechen --only spec`
 - `/seechen --refresh accept`
@@ -73,6 +74,9 @@ Supported actions:
   Execute the verification stage.
 - `--accept`
   Generate `specs/acceptance/criteria.md` and `specs/acceptance/report.md`.
+- `--converge`
+  After a green milestone, enter the audit/hardening convergence loop.
+  Delegates to `/converge` (see `.claude/docs/Convergence-Loop.md`).
 
 ### Mode 2: Directed Control Flags
 
