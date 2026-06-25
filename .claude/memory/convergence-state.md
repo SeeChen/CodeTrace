@@ -6,12 +6,14 @@ round. See `.claude/docs/Convergence-Loop.md` for the rubric and stop conditions
 ## Status
 
 - Loop Status: `not-started`   <!-- not-started | running | paused | converged | stopped -->
+- Autonomy Mode: `auto`        <!-- auto (unattended + escalation) | attended -->
 - Current Round: `0`
 - Max Rounds: `6`
 - Subjective Threshold: `8`    <!-- per-axis pass mark, 0–10 -->
 - Plateau Window (N): `2`
 - Working Branch: `none`
 - Last Accepted Commit: `none`
+- Next Round Scheduled: `no`   <!-- driver: yes (round n+1 queued) | no (stopped / not running) -->
 - Stop Reason: `none`          <!-- converged | plateau | budget | user-halt | hard-blocker -->
 
 ## Score History

@@ -87,20 +87,57 @@ Every round runs on its own commit.
   recorded as "regression rejected".
 - A round may only be accepted if it improves at least one axis and worsens none.
 
+## Autonomous Driver
+
+The loop is **unattended by default**: it advances round to round on its own and
+stops only on a stop condition or a user halt. This is the loop-engineering
+`/goal` model — the loop decides when it is finished.
+
+How it self-advances without a human pressing enter:
+
+- **In-session** — after writing round-`n` state, immediately begin round-`n+1`
+  unless a stop condition or escalation holds.
+- **Long-running / cross-session** — launch via `/loop /converge --resume` (the
+  model self-paces each round) or schedule the next round with `ScheduleWakeup`
+  firing `/converge --resume`.
+- **Termination = stop scheduling** — when a stop condition fires, do not
+  schedule the next round; exit to the final summary. This is what prevents the
+  runaway / spin-forever failure mode.
+
+`--attended` mode restores a per-round continue/stop/adjust gate for supervised
+runs; the escalation checkpoints below still apply in both modes.
+
 ## Human-in-the-Loop Checkpoints
 
-The loop is autonomous but not unattended. It must pause and ask the user:
+Even unattended, the loop must pause and ask the user:
 
-1. **Before entering the loop** — confirm scope and the score thresholds to use.
-2. **At the start of every new round** — show last round's report summary and
-   ask "continue / stop / adjust thresholds".
-3. **On audit uncertainty** — when a finding's severity or the right fix is
-   genuinely ambiguous (e.g. a design trade-off, an API change, anything that
-   would touch a frozen decision), present options and let the user decide
+1. **Before entering the loop** — confirm scope, thresholds, budget, and mode
+   once. After this the loop runs on its own.
+2. **On audit uncertainty / escalation** — when a finding's severity or the
+   right fix is genuinely ambiguous (a design trade-off, an API change, anything
+   that would touch a frozen decision), present options and let the user decide
    instead of guessing.
+3. **On a hard blocker** — an objective gate cannot be measured and cannot be
+   made measurable.
 4. **Before any merge to `main`** — the loop never merges on its own.
 
-Use `AskUserQuestion` for checkpoints 2 and 3 so the choice is explicit.
+Use `AskUserQuestion` for checkpoints 2 and 3 so the choice is explicit. In
+`--attended` mode, add a per-round continue/stop/adjust pause on top of these.
+
+## Loop-Engineering Conformance
+
+This loop is designed to satisfy the standard loop-engineering primitives so the
+pipeline qualifies as an autonomous coding-agent loop, not just a generator:
+
+| Primitive | Where it lives |
+| --- | --- |
+| Loop mechanism / driver | `/loop` or `ScheduleWakeup` firing `/converge --resume` |
+| Decision-maker | `audit-agent` + controller reading `convergence-state.md` |
+| Feedback gate | objective gates + regression guard (this doc) |
+| State persistence | `convergence-state.md` + per-round commit + append-only reports |
+| Budget cap / convergence (`/goal`) | composite score + stop conditions |
+| Anchor context | `CLAUDE.md`, `frozen-decisions.md`, `SA.md`, `brief.md` |
+| Escalation path | human-in-the-loop checkpoints above |
 
 ## Per-Round Report
 
