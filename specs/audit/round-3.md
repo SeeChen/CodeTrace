@@ -51,11 +51,37 @@ score is well above the 70% gate. Any residual survivors (e.g. equivalent
 docstring mutants in `contracts.py`, or an edge in `session.py`) will be listed
 from the next `mutmut results` and addressed or justified as equivalent.
 
+## Addendum — Mutation Re-measured (WSL, cache cleared)
+
+```
+251/251  🎉 193  ⏰ 1  🤔 0  🙁 57  🔇 0
+```
+
+- Mutation score = (193 killed + 1 timeout) / 251 = **77.3%** → **above the 70% gate → PASS**.
+- Journey: round 2 **64.5%** (89 survivors) → round 3 **77.3%** (57 survivors);
+  the +31 hardening tests killed **32** more mutants (killed 162 → 194).
+- The headline is now closed: 99% coverage *and* 77.3% mutation — lines are both
+  executed and asserted.
+
+### Residual survivors (57) — logged, not blocking
+
+The gate is met, so the loop converges rather than polishing to zero. Remaining
+survivors are an optional round-4 backlog:
+
+- `contracts.py` (2: 38-39) — Protocol `save_summary` stub/docstring: **equivalent
+  mutants** (no behavior), not killable by design.
+- `tracer.py` (27), `session.py` (7), `recorder.py` (8), `timing.py` (6), others —
+  killable with more end-to-end assertions on exact persistence call arguments;
+  deferred as diminishing-returns beyond the gate.
+
+## Composite Score (all gates measured)
+
+- Objective: **6 / 6** gates pass (mutation now included) = `1.00`
+- Subjective: (9 + 9) / 2 = 9.0 → `0.90`
+- Composite = 0.70 × 1.00 + 0.30 × 0.90 = **`0.97` (97 / 100)** — now fully measured.
+
 ## Stop-Condition Check
 
-- Converged? **Pending** — contingent on the re-measured mutation score.
-  If mutation ≥ 70%: all six objective gates pass and both subjective axes clear
-  the threshold → mark `converged`, recompute composite (now 6/6 gates).
-  If < 70%: round 4 targets the named residual survivors.
-- Budget: round 3 / 6. Plateau: no.
-- **Next Round Scheduled: `pending-remeasure`** — awaiting the WSL mutation re-run.
+- Converged? **YES** — all six objective gates pass (mutation 77.3% ≥ 70%) and
+  both subjective axes clear the threshold.
+- **Next Round Scheduled: `no`** — stop condition `converged` fired. Loop complete.
