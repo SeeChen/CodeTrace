@@ -122,7 +122,9 @@ def _execute(
         cfg, JsonPersistenceAdapter(cfg.trace_root), logger
     )
     adapter = session.adapter
-    qualname = getattr(func, "__qualname__", None) or getattr(func, "__name__", "trace")
+    qualname: str = str(
+        getattr(func, "__qualname__", None) or getattr(func, "__name__", "trace")
+    )
     trace_name = session.resolve_trace_name(qualname)
     failures: List[dict] = []
 
