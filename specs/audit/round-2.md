@@ -67,3 +67,22 @@
 - Plateau? No (composite +0.15). Budget? No (2 / 6). Hard blocker? No.
 - **Next Round Scheduled: `paused-escalation`** — the only remaining gap (F4) is a
   user decision. The loop pauses and asks rather than guessing.
+
+## Addendum — F4 Measured (external, WSL + mutmut 2.5.1)
+
+The user measured the mutation gate under WSL:
+
+```
+251/251  🎉 161  ⏰ 1  🤔 0  🙁 89  🔇 0
+```
+
+- Mutation score = (161 killed + 1 timeout) / 251 = **64.5%** → **below the 70% gate → FAIL**.
+- 89 mutants survived: places where source logic can change with **no test failing**.
+- This is the headline result of the whole loop: **99% line coverage but 64.5%
+  mutation score.** Coverage proved lines *ran*; mutation proved many were not
+  actually *asserted*. The self-regression gate did its job.
+
+Consequence: the loop is **not converged**. Objective sub-score is now 5/6 gates
+(mutation fails). New finding **F6** (high): kill surviving mutants until mutation
+≥ 70% — only ~14 kills are needed to cross the line. Planned for **round 3**,
+pending the `mutmut results` survivor breakdown.

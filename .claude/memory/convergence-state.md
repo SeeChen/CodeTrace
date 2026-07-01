@@ -5,9 +5,9 @@ round. See `.claude/docs/Convergence-Loop.md` for the rubric and stop conditions
 
 ## Status
 
-- Loop Status: `paused-escalation`  <!-- not-started | running | paused | paused-escalation | converged | stopped -->
+- Loop Status: `not-converged`  <!-- not-started | running | paused | paused-escalation | not-converged | converged | stopped -->
 - Autonomy Mode: `attended`    <!-- auto (unattended + escalation) | attended -->
-- Current Round: `2`
+- Current Round: `2` (F4 measured post-round; round 3 warranted)
 - Max Rounds: `6`
 - Subjective Threshold: `8`    <!-- per-axis pass mark, 0–10 -->
 - Plateau Window (N): `2`
@@ -27,7 +27,9 @@ mutation as n/a on this platform and mark converged).
 | Round | Tests | Coverage | Mutation | Lint | Types | Complexity | Extensibility | Maintainability | Composite | Δ | Outcome |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | 43/43 | 98% | unmeasured | pass | pass (fixed) | D(21) fail | 9 | 8 | 0.82 | n/a | accepted |
-| 2 | 46/46 | 99% | unmeasured | pass | pass | A(5) pass | 9 | 9 | 0.97 | +0.15 | accepted |
+| 2 | 46/46 | 99% | 64.5% FAIL (measured post-round) | pass | pass | A(5) pass | 9 | 9 | 0.97* | +0.15 | accepted |
+
+*Composite 0.97 was computed with mutation excluded as unmeasured. With F4 now measured and FAILING, the objective sub-score drops (5/6 gates pass) — recompute in round 3.
 
 <!-- Outcome: accepted | reverted (regression) -->
 
@@ -37,8 +39,9 @@ mutation as n/a on this platform and mark converged).
 | --- | --- | --- | --- | --- |
 | F2 | medium | `tracer.py` `_execute` | Extract phases into helpers to bring CC ≤ C | ✅ fixed round 2 (D21→A5) |
 | F3 | low | `session.py` flush/atexit | Add tests for flush/atexit/summary-failure paths | ✅ fixed round 2 (89%→100%) |
-| F4 | low (process) | tooling | Measure mutation via WSL `mutmut`/`cosmic-ray`, or accept n/a | ⏳ escalation (user decision) |
-| F5 | low | `tracer.py:81,188` | Cover disabled early-return + non-dict record fallback | open (optional) |
+| F4 | low (process) | tooling | Measure mutation via WSL `mutmut` | ✅ measured (64.5%, WSL) |
+| F5 | low | `tracer.py:81,188` | Cover disabled early-return + non-dict record fallback | open (may help round 3) |
+| F6 | **high** | 89 surviving mutants across `src/codetrace` | Add assertions/tests to kill survivors until mutation ≥ 70% | ⏳ open — round 3 target |
 
 ## Round Reports
 
@@ -53,6 +56,8 @@ mutation as n/a on this platform and mark converged).
 
 - Before loop: user requested a single-round demo (`/converge --run`, scoped to one round).
 - Round 2 stop-check: mutation gate (F4) unmeasurable on native Windows → escalation raised; awaiting user decision on how to reach convergence.
+- Round 2 escalation resolved: user will measure mutation under WSL and report the score back. F4 in progress (external measurement); convergence verdict deferred until the mutation score is in.
+- F4 MEASURED (WSL, mutmut 2.5.1): 251 mutants — 161 killed + 1 timeout, 89 survived, 0 skipped → mutation score 64.5%. Below the 70% gate → mutation gate FAILS. 99% line coverage but 64.5% mutation = real assertion blind spots. Loop NOT converged; round 3 warranted to kill >=14 survivors (target >=70%). Awaiting `mutmut results` survivor breakdown to plan targeted tests.
 
 ## Notes
 
