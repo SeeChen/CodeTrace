@@ -50,5 +50,10 @@ logs/
 .coverage
 htmlcov/
 
+# Mutation testing (run under WSL) + WSL venv
+.mutmut-cache
+html/
+.venv-wsl/
+
 # CodeTrace runtime output
 .codetrace/

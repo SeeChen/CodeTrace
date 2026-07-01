@@ -53,3 +53,38 @@ def test_module_flush_helper_is_safe_when_no_session():
     session.reset_session()
     # Should not raise even with no active session.
     session.flush()
+
+
+def test_module_flush_writes_summary_when_session_exists(tmp_path):
+    sess = _make(tmp_path)
+    sess.register({"name": "f", "duration": 0.1})
+    session.flush()
+    assert (tmp_path / sess.run_id / "summary.json").exists()
+
+
+def test_atexit_flush_writes_summary_when_session_exists(tmp_path):
+    sess = _make(tmp_path)
+    sess.register({"name": "f", "duration": 0.1})
+    session._atexit_flush()
+    assert (tmp_path / sess.run_id / "summary.json").exists()
+
+
+def test_flush_summary_isolates_adapter_failure(tmp_path):
+    """A failing summary write is logged and swallowed, never raised at exit."""
+
+    class _BoomAdapter:
+        def save_summary(self, *args, **kwargs):
+            raise RuntimeError("summary boom")
+
+    class _RecordingLogger:
+        def __init__(self):
+            self.warnings = []
+
+        def warning(self, *args, **kwargs):
+            self.warnings.append((args, kwargs))
+
+    logger = _RecordingLogger()
+    sess = session.Session(Config().merge(trace_root=str(tmp_path)), _BoomAdapter(), logger)
+    sess.register({"name": "f"})
+    sess.flush_summary()  # must not raise
+    assert logger.warnings  # failure was recorded, not silently swallowed
