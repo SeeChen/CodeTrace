@@ -5,25 +5,29 @@ round. See `.claude/docs/Convergence-Loop.md` for the rubric and stop conditions
 
 ## Status
 
-- Loop Status: `paused`        <!-- not-started | running | paused | converged | stopped -->
+- Loop Status: `paused-escalation`  <!-- not-started | running | paused | paused-escalation | converged | stopped -->
 - Autonomy Mode: `attended`    <!-- auto (unattended + escalation) | attended -->
-- Current Round: `1`
+- Current Round: `2`
 - Max Rounds: `6`
 - Subjective Threshold: `8`    <!-- per-axis pass mark, 0–10 -->
 - Plateau Window (N): `2`
 - Working Branch: `feature/convergence-loop`
-- Last Accepted Commit: `(round-1 fix — see git log)`
-- Next Round Scheduled: `yes`  <!-- driver: yes (round n+1 queued) | no (stopped / not running) -->
+- Last Accepted Commit: `(round-2 F2/F3 — see git log)`
+- Next Round Scheduled: `paused-escalation`  <!-- driver: yes | no | paused-escalation -->
 - Stop Reason: `none`          <!-- converged | plateau | budget | user-halt | hard-blocker -->
 
-Note: single-round demo. Round 1 signalled `yes` (not converged) but the loop was
-paused by user scope rather than firing round 2. Resume with `/converge --resume`.
+Note: Round 2 drove composite 0.82 → 0.97. All 5 measurable objective gates pass,
+both subjective axes clear the threshold. The ONLY blocker to convergence is F4:
+the mutation gate cannot be measured on native Windows. This is an escalation
+checkpoint — awaiting a user decision (measure via WSL/cosmic-ray, or accept
+mutation as n/a on this platform and mark converged).
 
 ## Score History
 
 | Round | Tests | Coverage | Mutation | Lint | Types | Complexity | Extensibility | Maintainability | Composite | Δ | Outcome |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | 43/43 | 98% | unmeasured | pass | pass (fixed) | D(21) fail | 9 | 8 | 0.82 | n/a | accepted |
+| 2 | 46/46 | 99% | unmeasured | pass | pass | A(5) pass | 9 | 9 | 0.97 | +0.15 | accepted |
 
 <!-- Outcome: accepted | reverted (regression) -->
 
@@ -31,21 +35,24 @@ paused by user scope rather than firing round 2. Resume with `/converge --resume
 
 | ID | Severity | Location | Proposed Fix | Status |
 | --- | --- | --- | --- | --- |
-| F2 | medium | `tracer.py:110` `_execute` | Extract persistence/compare/record phases into helpers to bring CC ≤ C | open (round 2) |
-| F3 | low | `session.py` atexit path | Add a test for the atexit flush, or justify the coverage exclusion | open (round 2) |
-| F4 | low (process) | tooling | Measure mutation via WSL `mutmut` or `cosmic-ray` on Windows | open (needs env decision) |
+| F2 | medium | `tracer.py` `_execute` | Extract phases into helpers to bring CC ≤ C | ✅ fixed round 2 (D21→A5) |
+| F3 | low | `session.py` flush/atexit | Add tests for flush/atexit/summary-failure paths | ✅ fixed round 2 (89%→100%) |
+| F4 | low (process) | tooling | Measure mutation via WSL `mutmut`/`cosmic-ray`, or accept n/a | ⏳ escalation (user decision) |
+| F5 | low | `tracer.py:81,188` | Cover disabled early-return + non-dict record fallback | open (optional) |
 
 ## Round Reports
 
 <!-- One line per round, newest last: round-<n> -> specs/audit/round-<n>.md -->
 
 - round-1 -> specs/audit/round-1.md (composite 0.82, accepted, F1 fixed)
+- round-2 -> specs/audit/round-2.md (composite 0.97, accepted, F2+F3 fixed; F4 escalation)
 
 ## Checkpoints Log
 
 <!-- Record each user decision: round, question, choice. -->
 
 - Before loop: user requested a single-round demo (`/converge --run`, scoped to one round).
+- Round 2 stop-check: mutation gate (F4) unmeasurable on native Windows → escalation raised; awaiting user decision on how to reach convergence.
 
 ## Notes
 
