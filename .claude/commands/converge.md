@@ -1,5 +1,5 @@
 ---
-description: From a PRD, run the full pipeline then self-iterate an unattended audit/hardening loop until composite quality converges, pausing only at escalation points.
+description: From a PRD, run the full pipeline then drive an unattended audit/hardening loop until composite quality converges, pausing only at escalation points. Repetition is delegated to a native scheduler; this command supplies the goal and per-round policy.
 argument-hint: "[--run | --auto | --attended | --resume | --max-rounds <n> | --threshold <n>]"
 ---
 
@@ -8,21 +8,27 @@ argument-hint: "[--run | --auto | --attended | --resume | --max-rounds <n> | --t
 ## Purpose
 
 `/converge` drives the project past "all tests pass" toward a composite quality
-bar. From a given PRD it runs the baseline active flow, then enters a self-
-iterating loop: `audit -> score -> (stop?) -> re-plan -> implement -> verify`.
+bar via the loop: `audit -> score -> (stop?) -> re-plan -> implement -> verify`.
 
-By default the loop runs **unattended**: it advances round to round on its own
-and pauses only at escalation points or a stop condition. This is the loop-
-engineering `/goal` model — the loop decides when it is finished. Full rubric,
-gates, stop conditions, and report layout live in
+It is the **goal + per-round policy** layer, not a scheduler. Repetition is owned
+by a native driver (`/loop` or `ScheduleWakeup`); `/converge` never implements its
+own timer or repeat mechanism. `--resume` runs **exactly one round** and reports
+whether another round should follow. This keeps a clean split:
+
+- **Driver (native):** how to repeat / self-pace / survive across turns.
+- **`/converge` (this file):** what one round does, what "done" means, when to
+  escalate.
+
+Full rubric, gates, stop conditions, and report layout live in
 `.claude/docs/Convergence-Loop.md` — read it before running.
 
 ## Direct Invocation
 
-- `/converge --run` — run baseline pipeline (if not done) then start the loop
-- `/converge --auto` — unattended loop (default): self-advance, escalation-only pauses
-- `/converge --attended` — pause for continue/stop/adjust at every round
-- `/converge --resume` — resume an in-progress loop from `convergence-state.md`
+- `/converge --run` — run baseline pipeline (if needed), set up state, then hand
+  the loop to the driver
+- `/converge --auto` — unattended mode (default): escalation-only pauses
+- `/converge --attended` — pause for continue/stop/adjust after each round
+- `/converge --resume` — run **one** round from `convergence-state.md`, then stop
 - `/converge --max-rounds <n>` — override the round budget
 - `/converge --threshold <n>` — override the subjective pass threshold
 
@@ -42,60 +48,72 @@ Also reachable as `/seechen --converge`.
 
 Default mode is **unattended + escalation** (`--auto`):
 
-- After an accepted round, **proceed to the next round automatically** — do not
-  wait for user input.
-- The loop runs until a stop condition fires (converged / plateau / budget /
+- The loop repeats until a stop condition fires (converged / plateau / budget /
   hard-blocker) or the user halts it.
 - Pause and ask the user **only** at escalation points (see Checkpoints).
 
 `--attended` restores a per-round continue/stop/adjust gate for supervised runs.
 
-## Driver
+## Driver (repetition is not this command's job)
 
-The loop self-advances using a native scheduling primitive so it survives across
-turns without a human pressing enter:
+`/converge` does not loop by itself. One round = one `--resume`. The native driver
+repeats it:
 
-- **In-session**: after writing round-`n` state, immediately begin round-`n+1`
-  unless a stop condition or escalation holds.
-- **Unattended / long-running**: launch via `/loop /converge --resume` (model
-  self-paces each round) or schedule the next round with `ScheduleWakeup` firing
-  `/converge --resume`. **Termination = stop scheduling**: when a stop condition
-  fires, do not schedule the next round and exit to Phase D.
+- **Launch:** `/loop /converge --resume` (model self-paces each round), or
+  schedule the next round with `ScheduleWakeup` firing `/converge --resume`.
+- **Continue signal:** each round ends by writing `Next Round Scheduled: yes|no`
+  to `convergence-state.md`. `yes` means the driver should fire another
+  `--resume`; `no` means a stop condition fired — the driver stops scheduling.
+- **Termination = stop scheduling.** There is no separate kill switch; the loop
+  ends precisely when a round reports `no`.
+
+This separation is why the command is not redundant with `/loop`: `/loop` knows
+how to repeat, `/converge` knows what to repeat and when to quit.
 
 ## Execution Model
 
-### Phase A — Baseline
+### Phase A — Baseline (`--run` only)
 
 1. If `pipeline-state.md` is not `completed`, run the active flow to `accept`
    (delegate to `/seechen --run`).
 2. Confirm a green baseline exists before looping.
 
-### Phase B — Enter loop (one-time checkpoint)
+### Phase B — Set up + hand off (`--run` only, one-time checkpoint)
 
 1. Ensure work is on a `feature/*` branch, never `main`.
-2. Confirm scope, thresholds, round budget, and autonomy mode **once** before
-   launching. After this the loop runs unattended.
-3. Initialize `convergence-state.md` (set Loop Status `running`, record mode).
+2. Confirm scope, thresholds, budget, and mode **once**.
+3. Initialize `convergence-state.md` (Loop Status `running`, round `0`, mode).
+4. Hand the loop to the driver (`/loop /converge --resume` or a scheduled
+   `--resume`). Do not run rounds inline as a hand-written repeat.
 
-### Phase C — Iterate each round (unattended)
+### Phase C — One round (the loop body, `--resume`)
 
-1. **Audit** — run the `audit-quality` skill: measure every objective gate,
+Idempotent and safe to re-fire. A round does exactly this, then returns:
+
+1. **Read** `convergence-state.md`; determine the next round number `n`.
+2. **Audit** — run the `audit-quality` skill: measure every objective gate,
    score subjective axes with cited evidence.
-2. **Score** — compute the composite; write `specs/audit/round-<n>.md`.
-3. **Stop check** — evaluate all stop conditions. If any holds, exit to Phase D.
-4. **Re-plan** — turn accepted findings into a minimal change set. If a finding
+3. **Score** — compute the composite; write `specs/audit/round-<n>.md`.
+4. **Stop check** — evaluate all stop conditions. If any holds, go to step 8
+   with `no`.
+5. **Re-plan** — turn accepted findings into a minimal change set. If a finding
    needs a frozen-decision change, an API change, or is genuinely ambiguous,
    **escalate** (pause and ask) instead of guessing.
-5. **Implement + verify** — apply changes via `/seechen --implement` and
+6. **Implement + verify** — apply changes via `/seechen --implement` and
    `/seechen --verify` on a fresh commit.
-6. **Regression guard** — if any objective gate regressed, revert the round and
+7. **Regression guard** — if any objective gate regressed, revert the round and
    record "regression rejected".
-7. Update `convergence-state.md`; increment the round; **advance automatically**.
+8. **Write state + signal** — update `convergence-state.md` (round result, score
+   history, `Next Round Scheduled: yes|no`, and `Stop Reason` when `no`). Return.
 
-### Phase D — Exit
+The round does not start round `n+1` itself; the driver decides based on the
+signal. (`--attended` adds a continue/stop/adjust checkpoint before returning.)
+
+### Phase D — Exit (when a round signals `no`)
 
 1. Write a final convergence summary (which stop condition fired, final scores).
-2. Update `pipeline-state.md` and `convergence-state.md` (Loop Status + reason).
+2. Set Loop Status + Stop Reason in `convergence-state.md`; update
+   `pipeline-state.md`.
 3. Leave merge to `main` as a user decision (final checkpoint).
 
 ## Checkpoints
@@ -112,6 +130,9 @@ The unattended loop pauses only here:
 
 ## Guardrails
 
+- Do not implement a custom scheduler / timer / retry loop; delegate repetition
+  to the native driver.
+- One round per `--resume`; keep it idempotent so a re-fire cannot double-apply.
 - Never loosen a test or gate to raise a score (reward-hacking is forbidden).
 - Never accept a round that worsens any objective gate.
 - Never treat an unmeasured gate as a pass; record it.

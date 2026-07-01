@@ -89,23 +89,28 @@ Every round runs on its own commit.
 
 ## Autonomous Driver
 
-The loop is **unattended by default**: it advances round to round on its own and
-stops only on a stop condition or a user halt. This is the loop-engineering
-`/goal` model — the loop decides when it is finished.
+Repetition is **delegated to a native scheduler**, not implemented inside the
+loop. This is a deliberate split so `/converge` does not duplicate `/loop`:
 
-How it self-advances without a human pressing enter:
+- **Driver (native `/loop` or `ScheduleWakeup`)** — knows *how* to repeat, self-
+  pace, and survive across turns.
+- **`/converge --resume`** — runs *exactly one round* (the loop body) and reports
+  whether another should follow. It contains no timer, while-loop, or retry
+  mechanism of its own.
 
-- **In-session** — after writing round-`n` state, immediately begin round-`n+1`
-  unless a stop condition or escalation holds.
-- **Long-running / cross-session** — launch via `/loop /converge --resume` (the
-  model self-paces each round) or schedule the next round with `ScheduleWakeup`
-  firing `/converge --resume`.
-- **Termination = stop scheduling** — when a stop condition fires, do not
-  schedule the next round; exit to the final summary. This is what prevents the
-  runaway / spin-forever failure mode.
+How a run proceeds without a human pressing enter:
 
-`--attended` mode restores a per-round continue/stop/adjust gate for supervised
-runs; the escalation checkpoints below still apply in both modes.
+- **Launch** — `/loop /converge --resume` (model self-paces each round), or a
+  scheduled `ScheduleWakeup` firing `/converge --resume`.
+- **Continue signal** — each round writes `Next Round Scheduled: yes|no` to
+  `convergence-state.md`. `yes` → the driver fires another `--resume`; `no` → a
+  stop condition fired and the driver stops scheduling.
+- **Termination = stop scheduling** — the loop ends precisely when a round
+  reports `no`. This is what prevents the runaway / spin-forever failure mode.
+
+Each round must be **idempotent**: safe to re-fire without double-applying a
+change, since a scheduler may retry. `--attended` mode adds a per-round
+continue/stop/adjust gate; the escalation checkpoints below apply in both modes.
 
 ## Human-in-the-Loop Checkpoints
 
