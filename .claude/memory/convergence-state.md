@@ -5,9 +5,9 @@ round. See `.claude/docs/Convergence-Loop.md` for the rubric and stop conditions
 
 ## Status
 
-- Loop Status: `not-converged`  <!-- not-started | running | paused | paused-escalation | not-converged | converged | stopped -->
+- Loop Status: `pending-remeasure`  <!-- not-started | running | paused | paused-escalation | not-converged | pending-remeasure | converged | stopped -->
 - Autonomy Mode: `attended`    <!-- auto (unattended + escalation) | attended -->
-- Current Round: `2` (F4 measured post-round; round 3 warranted)
+- Current Round: `3` (hardening tests added; mutation re-run pending in WSL)
 - Max Rounds: `6`
 - Subjective Threshold: `8`    <!-- per-axis pass mark, 0–10 -->
 - Plateau Window (N): `2`
@@ -29,7 +29,9 @@ mutation as n/a on this platform and mark converged).
 | 1 | 43/43 | 98% | unmeasured | pass | pass (fixed) | D(21) fail | 9 | 8 | 0.82 | n/a | accepted |
 | 2 | 46/46 | 99% | 64.5% FAIL (measured post-round) | pass | pass | A(5) pass | 9 | 9 | 0.97* | +0.15 | accepted |
 
-*Composite 0.97 was computed with mutation excluded as unmeasured. With F4 now measured and FAILING, the objective sub-score drops (5/6 gates pass) — recompute in round 3.
+| 3 | 77/77 | 99% | pending re-run | pass | pass | unchanged | 9 | 9 | pending | tbd | tests-only |
+
+*Composite 0.97 was computed with mutation excluded as unmeasured. With F4 now measured and FAILING, the objective sub-score drops (5/6 gates pass) — recompute after the round-3 mutation re-run.
 
 <!-- Outcome: accepted | reverted (regression) -->
 
@@ -41,7 +43,7 @@ mutation as n/a on this platform and mark converged).
 | F3 | low | `session.py` flush/atexit | Add tests for flush/atexit/summary-failure paths | ✅ fixed round 2 (89%→100%) |
 | F4 | low (process) | tooling | Measure mutation via WSL `mutmut` | ✅ measured (64.5%, WSL) |
 | F5 | low | `tracer.py:81,188` | Cover disabled early-return + non-dict record fallback | open (may help round 3) |
-| F6 | **high** | 89 surviving mutants across `src/codetrace` | Add assertions/tests to kill survivors until mutation ≥ 70% | ⏳ open — round 3 target |
+| F6 | **high** | 89 surviving mutants across `src/codetrace` | Add assertions/tests to kill survivors until mutation ≥ 70% | 🔄 round 3: +31 hardening tests added; awaiting WSL re-measure |
 
 ## Round Reports
 
@@ -49,6 +51,7 @@ mutation as n/a on this platform and mark converged).
 
 - round-1 -> specs/audit/round-1.md (composite 0.82, accepted, F1 fixed)
 - round-2 -> specs/audit/round-2.md (composite 0.97, accepted, F2+F3 fixed; F4 escalation)
+- round-3 -> specs/audit/round-3.md (+31 hardening tests, suite 46→77; mutation re-run pending)
 
 ## Checkpoints Log
 
