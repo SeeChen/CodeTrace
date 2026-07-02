@@ -42,7 +42,9 @@ milestone 变绿之后，**`/converge`** 会继续迭代——`audit -> score ->
 
 **最终闸门（全部实测）：** 测试 77/77 · 行覆盖率 99% · **变异 77.3%（≥70%）** · ruff 净 · mypy 0 错 · 复杂度无低于 B 的块。
 
-循环揪出了绿灯掩盖的东西——一个类型漏洞、一个复杂度热点，以及一场**覆盖率幻觉**（99% 的行被执行，但只有 64.5% 的逻辑真正被断言）。变异测试在原生 Windows 上跑不了时它选择升级问人（改用 WSL 测量），并且在达标处（77.3%）就停手，而不是无限打磨。完整证据：[specs/audit/](specs/audit/) 与 [convergence-summary.md](specs/audit/convergence-summary.md)。
+循环揪出了绿灯掩盖的东西——一个类型漏洞、一个复杂度热点，以及一场**覆盖率幻觉**（99% 的行被执行，但只有 64.5% 的逻辑真正被断言）。变异测试在原生 Windows 上跑不了时它选择升级问人（改用 WSL 测量），并且在达标处（77.3%）就停手，而不是无限打磨。
+
+📖 **完整叙事：** [案例报告 —— 从一份 PRD 到自收敛的代码库](docs/Case-Study.md)（英文）。原始证据：[specs/audit/](specs/audit/) 与 [convergence-summary.md](specs/audit/convergence-summary.md)。
 
 ## 概述
 
@@ -59,6 +61,7 @@ milestone 变绿之后，**`/converge`** 会继续迭代——`audit -> score ->
 - [产品需求文档 (PRD)](docs/PRD.md)
 - [AI 开发工作流](docs/Workflow.md)
 - [PRD-Pipeline 调用接口](.claude/docs/PRD-Pipeline-Interface.md)
+- [案例报告](docs/Case-Study.md) —— 从 PRD 到收敛的完整叙事（英文）
 - [收敛循环](.claude/docs/Convergence-Loop.md) —— rubric、闸门、停止条件、驱动器
 - [收敛总结](specs/audit/convergence-summary.md) —— 逐轮的实测过程
 - [CLAUDE.md](CLAUDE.md) —— 仓库入口与流水线总览

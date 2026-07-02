@@ -42,7 +42,9 @@ The pipeline was run end to end against `docs/PRD.md` to generate the CodeTrace 
 
 **Final gates (all measured):** tests 77/77 · line coverage 99% · **mutation 77.3% (≥70%)** · ruff clean · mypy 0 errors · complexity no block worse than B.
 
-The loop surfaced what a green suite hid — a type hole, a complexity hotspot, and a **coverage illusion** (99% of lines executed, but only 64.5% of logic actually asserted). It escalated when mutation testing could not run on native Windows (measured via WSL) and stopped at the defined bar rather than polishing forever. Full evidence: [specs/audit/](specs/audit/) and [convergence-summary.md](specs/audit/convergence-summary.md).
+The loop surfaced what a green suite hid — a type hole, a complexity hotspot, and a **coverage illusion** (99% of lines executed, but only 64.5% of logic actually asserted). It escalated when mutation testing could not run on native Windows (measured via WSL) and stopped at the defined bar rather than polishing forever.
+
+📖 **Read the full narrative:** [Case Study — From One PRD to a Self-Converged Codebase](docs/Case-Study.md). Raw evidence: [specs/audit/](specs/audit/) and [convergence-summary.md](specs/audit/convergence-summary.md).
 
 ## Overview
 
@@ -59,6 +61,7 @@ The repository emphasizes:
 - [Product Requirements Document (PRD)](docs/PRD.md)
 - [AI Development Workflow](docs/Workflow.md)
 - [PRD-Pipeline Interface](.claude/docs/PRD-Pipeline-Interface.md)
+- [Case Study](docs/Case-Study.md) — the full narrative, from PRD to converged codebase
 - [Convergence Loop](.claude/docs/Convergence-Loop.md) — rubric, gates, stop conditions, driver
 - [Convergence Summary](specs/audit/convergence-summary.md) — the proven run, round by round
 - [CLAUDE.md](CLAUDE.md) — repository entry point and pipeline overview
