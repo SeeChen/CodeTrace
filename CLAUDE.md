@@ -21,6 +21,14 @@ This repository demonstrates an **AI-first delivery pipeline**: a reusable syste
 
 The unified entry point is **`/seechen`** (e.g. `/seechen --run`, `/seechen --sa`, or a natural-language request). `/prd-pipeline` is a deprecated alias.
 
+After acceptance, an optional **convergence loop** hardens a green milestone:
+
+| Phase | Command | Skill | Agent | Output |
+| --- | --- | --- | --- | --- |
+| 7 converge | `/converge` | audit-quality | audit-agent | `specs/audit/*` |
+
+It iterates `audit -> score -> stop-check -> re-plan -> implement -> verify` against machine-checkable gates until convergence; repetition is delegated to a native driver (`/loop` or `ScheduleWakeup`), and a regression guard reverts any round that worsens a gate. See `.claude/docs/Convergence-Loop.md`.
+
 ## Key Locations
 
 - `docs/PRD.md` — product source of truth; `docs/Workflow.md` — full stage definitions
@@ -28,8 +36,8 @@ The unified entry point is **`/seechen`** (e.g. `/seechen --run`, `/seechen --sa
 - `.claude/skills/` — per-stage execution guides
 - `.claude/agents/` — stage role owners
 - `.claude/rules/` — non-negotiable workflow and generation constraints
-- `.claude/memory/` — durable state: `pipeline-state.md`, `frozen-decisions.md`, `open-questions.md`, `implementation-log.md`
-- `.claude/docs/` — pipeline interface and calling contract
+- `.claude/memory/` — durable state: `pipeline-state.md`, `frozen-decisions.md`, `open-questions.md`, `implementation-log.md`, `convergence-state.md`
+- `.claude/docs/` — pipeline interface and calling contract; `Convergence-Loop.md` (loop rubric, gates, stop conditions)
 - `specs/` — generated pipeline outputs
 
 ## Operating Rules
@@ -40,6 +48,7 @@ The unified entry point is **`/seechen`** (e.g. `/seechen --run`, `/seechen --sa
 4. Read `memory/pipeline-state.md` before starting and update it after each completed stage.
 5. Keep agents and skills compact and docs-backed (see `.claude/rules/agent-skill-design.md`).
 6. Preserve unresolved choices in `memory/open-questions.md` instead of guessing.
+7. In the convergence loop, drive quality with machine-checkable gates, revert any round that worsens a gate, and escalate genuine ambiguity instead of guessing (see `.claude/docs/Convergence-Loop.md`); track loop progress in `memory/convergence-state.md`.
 
 ## Current State
 

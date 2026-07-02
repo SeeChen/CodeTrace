@@ -148,6 +148,30 @@ Acceptance should state:
 - deferred or blocked items
 - final milestone status
 
+### Stage 7: Converge (Optional Hardening Loop)
+
+Purpose:
+Harden an already-accepted milestone past "all tests pass" toward a measurable
+composite quality bar, then stop.
+
+Main outputs:
+- `specs/audit/round-<n>.md` (per-round evidence)
+- `specs/audit/convergence-summary.md` (final capstone)
+
+The loop iterates `audit -> score -> stop-check -> re-plan -> implement -> verify`.
+It is governed by:
+- machine-checkable gates carrying the majority weight (tests, coverage,
+  mutation, lint, types, complexity), with evidence-cited subjective axes as a
+  capped minority
+- a regression guard that reverts any round worsening a gate
+- stop conditions (converged / plateau / budget) that guarantee termination
+- human-in-the-loop escalation for genuine ambiguity or unmeasurable gates
+
+Repetition is delegated to a native driver (`/loop` or `ScheduleWakeup`);
+`/converge --resume` runs exactly one idempotent round. See
+`.claude/docs/Convergence-Loop.md` for the rubric and thresholds, and track loop
+state in `.claude/memory/convergence-state.md`.
+
 ## 4. Artifact Layout
 
 The active target structure is:
@@ -166,9 +190,14 @@ specs/
 │   ├── failure-policy.md
 │   ├── test-matrix.md
 │   └── tasks.md
-└── acceptance/
-    ├── criteria.md
-    └── report.md
+├── acceptance/
+│   ├── criteria.md
+│   └── report.md
+└── audit/
+    ├── round-1.md
+    ├── round-2.md
+    ├── round-3.md
+    └── convergence-summary.md
 ```
 
 Older `ref / global / domains / testing` outputs may still exist during migration, but the repository should gradually move toward the smaller active structure.
@@ -228,6 +257,12 @@ Recommended examples:
 8. `/seechen --accept`
 
 Natural-language requests routed through `/seechen` are also valid when the intent is clear enough to infer safely.
+
+For post-acceptance hardening, use `/converge` (also reachable as `/seechen --converge`):
+
+- `/converge --run` — set up and drive the loop from a green milestone
+- `/converge --resume` — run one hardening round
+- `/converge --auto` / `--attended` — unattended (escalation-only) or per-round supervised
 
 ## 7. Collaboration Rules
 

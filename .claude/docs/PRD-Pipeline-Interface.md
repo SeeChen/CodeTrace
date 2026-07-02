@@ -18,6 +18,7 @@ Structured invocation examples:
 - `/seechen --implement`
 - `/seechen --verify`
 - `/seechen --accept`
+- `/seechen --converge`
 - `/seechen --from verify`
 - `/seechen --only spec`
 
@@ -58,6 +59,15 @@ The active stage order is:
 7. `accept`
 
 Another workflow may compose this pipeline only if it preserves that ordering or records an explicit reason for deviation.
+
+### Optional Post-Acceptance Extension
+
+After `accept`, the optional **convergence loop** (`/converge`) hardens the
+milestone against machine-checkable gates until it converges. It is not part of
+the linear stage order; it runs only on an already-accepted, green milestone.
+Outputs go to `specs/audit/*`; state is tracked in
+`.claude/memory/convergence-state.md`; the contract is defined in
+`.claude/docs/Convergence-Loop.md`.
 
 ## Intent Routing Contract
 
