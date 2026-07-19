@@ -1,4 +1,4 @@
-# .gitignore for CodeTrace-AI
+# .gitignore for CodeTrace
 
 # Python
 __pycache__/

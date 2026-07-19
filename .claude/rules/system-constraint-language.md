@@ -1,6 +1,6 @@
 # Rule 8: System Constraint Language
 
-This rule defines the default language for repository-level AI system constraint files in the CodeTrace-AI project.
+This rule defines the default language for repository-level AI system constraint files in the CodeTrace project.
 
 ## Purpose
 

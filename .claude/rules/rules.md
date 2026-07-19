@@ -1,6 +1,6 @@
 # PRD-Pipeline Rules Index
 
-This document indexes the active workflow rules for the CodeTrace-AI repository.
+This document indexes the active workflow rules for the CodeTrace repository.
 
 ## Rules Overview
 
