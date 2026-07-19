@@ -47,7 +47,7 @@ actually asserted. Hardening lifted mutation to 77.3%, past the gate, and the lo
 | [Pipeline Components](docs/Pipeline-Components.md) | **Every agent and skill in detail** — inputs, outputs, boundaries |
 | [Case Study](docs/Case-Study.md) | The end-to-end run, round by round |
 | [Convergence Loop](.claude/docs/Convergence-Loop.md) | Rubric, gates, stop conditions, driver |
-| [Diagrams](docs/diagrams/) | PlantUML flow + sequence diagrams |
+| [Diagrams](docs/Pipeline-Components.md#2-diagrams) | Flow + sequence diagrams, rendered inline (PlantUML source in [`docs/diagrams/`](docs/diagrams/)) |
 
 ## Structure
 

@@ -29,11 +29,101 @@ command, one skill, and one agent — not rewiring the pipeline.
 
 ## 2. Diagrams
 
-- [`diagrams/pipeline-flow.puml`](diagrams/pipeline-flow.puml) — stage flow, artifacts, rules and memory layers
-- [`diagrams/pipeline-sequence.puml`](diagrams/pipeline-sequence.puml) — one run as a sequence: command → agent → skill → artifact → memory
+Rendered inline below (Mermaid, rendered natively by GitHub). The same diagrams are
+also kept as PlantUML source for other toolchains:
+[`diagrams/pipeline-flow.puml`](diagrams/pipeline-flow.puml) ·
+[`diagrams/pipeline-sequence.puml`](diagrams/pipeline-sequence.puml) — render those with
+[plantuml.com](https://www.plantuml.com/plantuml) or `java -jar plantuml.jar docs/diagrams/*.puml`.
 
-Render with [plantuml.com](https://www.plantuml.com/plantuml), a PlantUML IDE
-plugin, or `java -jar plantuml.jar docs/diagrams/*.puml`.
+### 2.1 Pipeline flow
+
+```mermaid
+flowchart TD
+    PRD["docs/PRD.md<br/>single source of truth"]
+    S0["0 · Intent<br/>/pipeline-init<br/>normalize-prd + prd-analyst-agent"]
+    S1["1 · Architecture<br/>/generate-sa<br/>generate-sa + architect-agent"]
+    S2["2 · Build spec<br/>/generate-spec<br/>generate-build-spec + spec-builder-agent"]
+    S3["3 · Task slices<br/>/slice-work<br/>slice-build-tasks + spec-builder-agent"]
+    S4["4 · Coding<br/>/implement<br/>implement-from-task + coding-agent"]
+    S5["5 · Verify<br/>/verify<br/>verify-build + qa-acceptance-agent"]
+    S6["6 · Accept<br/>/accept<br/>accept-milestone + qa-acceptance-agent"]
+    S7["7 · Converge (loop)<br/>/converge<br/>audit-quality + audit-agent"]
+
+    RULES[".claude/rules/<br/>10 non-negotiable constraints"]
+    MEM[(".claude/memory/<br/>pipeline-state · frozen-decisions<br/>open-questions · convergence-state")]
+
+    PRD --> S0
+    S0 -->|"intent/brief.md"| S1
+    S1 -->|"SA.md — frozen"| S2
+    S2 -->|"build/*"| S3
+    S3 -->|"build/tasks.md"| S4
+    S4 -->|"src/ + tests/"| S5
+    S5 -->|"verification evidence"| S6
+    S6 -->|"accepted milestone"| S7
+    S7 -->|"audit → score → stop-check<br/>→ re-plan → implement → verify"| S7
+
+    RULES -.->|"constrain every stage"| S3
+    MEM -.->|"read before, write after<br/>every stage"| S4
+
+    classDef stage fill:#FFFFFF,stroke:#CDD2DA,color:#171B23
+    classDef anchor fill:#EEF1FB,stroke:#2A4BD7,color:#171B23
+    classDef side fill:#FFFDF3,stroke:#CDD2DA,color:#3A424F
+    class S0,S1,S2,S3,S4,S5,S6 stage
+    class PRD,S7 anchor
+    class RULES,MEM side
+```
+
+Gates enforced in stage 7: tests · coverage · mutation · lint · types · complexity.
+A regression guard reverts any round that worsens a gate; stop conditions
+(converged / plateau / budget) guarantee termination.
+
+### 2.2 One run, as a sequence
+
+```mermaid
+sequenceDiagram
+    actor Dev as Developer
+    participant CMD as Command
+    participant AG as Agent
+    participant SK as Skill
+    participant SPEC as specs/
+    participant MEM as memory/
+
+    Dev->>CMD: /seechen --run
+    CMD->>MEM: read pipeline-state.md
+    MEM-->>CMD: current stage, blockers
+
+    loop each stage 0 to 6
+        CMD->>AG: activate the stage's role owner
+        AG->>SK: load the stage's execution guide
+        SK->>SPEC: read frozen upstream artifact
+        SPEC-->>SK: inputs (brief / SA / build spec)
+        SK->>SPEC: write stage output
+        AG->>MEM: update pipeline-state + frozen-decisions
+    end
+    CMD-->>Dev: milestone accepted
+
+    Note over CMD,MEM: Each stage is three files:<br/>command (entry) + skill (how) + agent (who)
+
+    Dev->>CMD: /converge --run
+    CMD->>MEM: read convergence-state.md
+
+    loop until converged / plateau / budget
+        CMD->>AG: audit-agent
+        AG->>SK: audit-quality
+        SK->>SK: run gates — tests, coverage, mutation,<br/>lint, types, complexity
+        SK->>SPEC: write specs/audit/round-N.md
+        alt gate unmeasurable or genuinely ambiguous
+            AG->>Dev: escalate for a decision
+            Dev-->>AG: choice
+        else actionable finding
+            AG->>SK: re-plan minimal change
+            SK->>SPEC: implement + verify
+            AG->>AG: revert round if a gate regressed
+        end
+        AG->>MEM: update convergence-state.md
+    end
+    CMD-->>Dev: CONVERGED — all gates pass
+```
 
 ## 3. Stage map
 

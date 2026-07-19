@@ -45,7 +45,7 @@ PRD → 意图 → 架构 → 构建契约 → 任务切片 → 编码 → 验�
 | [Pipeline Components](docs/Pipeline-Components.md) | **每个 agent 与 skill 的详解** —— 输入、输出、边界 |
 | [案例报告](docs/Case-Study.md) | 端到端运行的逐轮记录 |
 | [收敛循环](.claude/docs/Convergence-Loop.md) | rubric、闸门、停止条件、驱动器 |
-| [图示](docs/diagrams/) | PlantUML 流程图与时序图 |
+| [图示](docs/Pipeline-Components.md#2-diagrams) | 流程图与时序图,文档内直接渲染(PlantUML 源码在 [`docs/diagrams/`](docs/diagrams/)) |
 
 ## 结构
 
