@@ -1,6 +1,6 @@
 # Rule 3: Commit Message Guidelines
 
-This rule specifies the format and standards for commit messages in CodeTrace-AI.
+This rule specifies the format and standards for commit messages in CodeTrace.
 
 ## Message Format
 

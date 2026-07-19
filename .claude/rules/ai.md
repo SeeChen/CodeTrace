@@ -1,6 +1,6 @@
 # Rule 4: AI-Driven Development Notes
 
-This rule covers special considerations for AI-assisted development in CodeTrace-AI.
+This rule covers special considerations for AI-assisted development in CodeTrace.
 
 ## Guidelines
 

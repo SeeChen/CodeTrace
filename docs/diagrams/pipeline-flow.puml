@@ -1,0 +1,75 @@
+@startuml pipeline-flow
+' CodeTrace — delivery pipeline flow
+' Render: https://www.plantuml.com/plantuml  |  java -jar plantuml.jar pipeline-flow.puml
+
+title CodeTrace — one PRD to a converged codebase
+
+skinparam backgroundColor #F5F6F8
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam ArrowColor #2A4BD7
+skinparam ArrowFontColor #5B6473
+skinparam ArrowFontSize 11
+skinparam rectangle {
+  BorderColor #CDD2DA
+  BackgroundColor #FFFFFF
+  FontColor #171B23
+  roundCorner 12
+}
+skinparam database {
+  BorderColor #CDD2DA
+  BackgroundColor #FFFFFF
+  FontColor #171B23
+}
+skinparam note {
+  BorderColor #CDD2DA
+  BackgroundColor #FFFDF3
+  FontColor #3a424f
+}
+
+rectangle "**docs/PRD.md**\nsingle source of truth" as PRD #EEF1FB
+
+rectangle "**0 · Intent**\n/pipeline-init\nnormalize-prd + prd-analyst-agent" as S0
+rectangle "**1 · Architecture**\n/generate-sa\ngenerate-sa + architect-agent" as S1
+rectangle "**2 · Build spec**\n/generate-spec\ngenerate-build-spec + spec-builder-agent" as S2
+rectangle "**3 · Task slices**\n/slice-work\nslice-build-tasks + spec-builder-agent" as S3
+rectangle "**4 · Coding**\n/implement\nimplement-from-task + coding-agent" as S4
+rectangle "**5 · Verify**\n/verify\nverify-build + qa-acceptance-agent" as S5
+rectangle "**6 · Accept**\n/accept\naccept-milestone + qa-acceptance-agent" as S6
+rectangle "**7 · Converge** (loop)\n/converge\naudit-quality + audit-agent" as S7 #EEF1FB
+
+database "**.claude/memory/**\npipeline-state · frozen-decisions\nopen-questions · implementation-log\nconvergence-state" as MEM
+rectangle "**.claude/rules/**\n10 non-negotiable constraints\n(freeze upstream · branch · commit\n· maps-not-warehouses · summary-sync)" as RULES #FFFDF3
+
+PRD --> S0
+S0 --> S1 : intent/brief.md
+S1 --> S2 : architecture/SA.md\n**(frozen)**
+S2 --> S3 : build/*
+S3 --> S4 : build/tasks.md
+S4 --> S5 : src/ + tests/
+S5 --> S6 : verification evidence
+S6 --> S7 : accepted milestone
+S7 --> S7 : audit → score → stop-check\n→ re-plan → implement → verify
+
+MEM .up.> S4 : resumable state\n(read before, write after\n**every** stage)
+RULES .up.> S2 : constrain\n**every** stage
+
+note right of S7
+  **Machine-checkable gates**
+  tests · coverage · mutation
+  lint · types · complexity
+  --
+  A regression guard reverts any round
+  that worsens a gate. Stop conditions
+  (converged / plateau / budget)
+  guarantee termination.
+end note
+
+note bottom of PRD
+  Every downstream artifact derives
+  from upstream ones. Architecture is
+  frozen before build specs; build specs
+  before code.
+end note
+
+@enduml

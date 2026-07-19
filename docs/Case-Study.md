@@ -175,5 +175,7 @@ Windows — a limitation the loop surfaces and records rather than hides.
   [`round-2.md`](../specs/audit/round-2.md), [`round-3.md`](../specs/audit/round-3.md)
 - Capstone: [`specs/audit/convergence-summary.md`](../specs/audit/convergence-summary.md)
 - Loop contract: [`.claude/docs/Convergence-Loop.md`](../.claude/docs/Convergence-Loop.md)
+- Component reference: [`docs/Pipeline-Components.md`](Pipeline-Components.md) — every agent and skill
+- Diagrams: [`docs/diagrams/`](diagrams/) — PlantUML flow + sequence
 - Durable state: [`.claude/memory/convergence-state.md`](../.claude/memory/convergence-state.md)
 - Acceptance: [`specs/acceptance/report.md`](../specs/acceptance/report.md)

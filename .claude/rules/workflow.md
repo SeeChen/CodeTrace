@@ -1,6 +1,6 @@
 # Rule 1: Workflow Overview
 
-This rule outlines the core Git workflow for the CodeTrace-AI project.
+This rule outlines the core Git workflow for the CodeTrace project.
 
 ## Workflow Steps
 

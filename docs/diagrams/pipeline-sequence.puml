@@ -1,0 +1,111 @@
+@startuml pipeline-sequence
+' CodeTrace — one pipeline run, end to end
+' Render: https://www.plantuml.com/plantuml  |  java -jar plantuml.jar pipeline-sequence.puml
+
+title CodeTrace — one run: command, skill, agent, artifact, memory
+
+skinparam backgroundColor #F5F6F8
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam sequenceMessageAlign center
+skinparam sequence {
+  ArrowColor #2A4BD7
+  ArrowFontColor #171B23
+  LifeLineBorderColor #CDD2DA
+  LifeLineBackgroundColor #FFFFFF
+  ParticipantBorderColor #CDD2DA
+  ParticipantBackgroundColor #FFFFFF
+  ParticipantFontColor #171B23
+  ActorBorderColor #CDD2DA
+  ActorBackgroundColor #FFFFFF
+  GroupBorderColor #CDD2DA
+  GroupBackgroundColor #EEF1FB
+  DividerBackgroundColor #EEF1FB
+  DividerBorderColor #CDD2DA
+}
+skinparam note {
+  BorderColor #CDD2DA
+  BackgroundColor #FFFDF3
+  FontColor #3a424f
+}
+
+actor "Developer" as DEV
+participant "**Command**\n/seechen · /converge" as CMD
+participant "**Agent**\nrole owner" as AG
+participant "**Skill**\nexecution guide" as SK
+database "**specs/**\nartifacts" as SPEC
+database "**.claude/memory/**\ndurable state" as MEM
+
+== Stages 0–6 : PRD to accepted milestone ==
+
+DEV -> CMD : /seechen --run
+activate CMD
+CMD -> MEM : read pipeline-state.md
+MEM --> CMD : current stage, blockers
+
+loop each stage 0 → 6
+  CMD -> AG : activate the stage's role owner
+  activate AG
+  AG -> SK : load the stage's execution guide
+  activate SK
+  SK -> SPEC : read frozen upstream artifact
+  SPEC --> SK : inputs (brief / SA / build spec …)
+  SK -> SK : execute stage procedure
+  SK -> SPEC : write stage output
+  deactivate SK
+  AG -> MEM : update pipeline-state\n+ frozen-decisions / open-questions
+  deactivate AG
+end
+
+CMD --> DEV : milestone **accepted** (10/10 gates)
+deactivate CMD
+
+note over CMD, MEM
+  Each stage is three files:
+  **command** (entry) + **skill** (how) + **agent** (who).
+  Memory makes the run resumable at any point.
+end note
+
+== Phase 7 : convergence loop (optional hardening) ==
+
+DEV -> CMD : /converge --run
+activate CMD
+CMD -> MEM : read convergence-state.md
+
+loop until converged / plateau / budget
+  CMD -> AG : audit-agent
+  activate AG
+  AG -> SK : audit-quality
+  activate SK
+  SK -> SK : run gates — tests, coverage,\nmutation, lint, types, complexity
+  SK -> SPEC : write specs/audit/round-N.md
+  deactivate SK
+
+  alt gate unmeasurable or genuinely ambiguous
+    AG -> DEV : escalate for a decision
+    DEV --> AG : choice
+  else actionable finding
+    AG -> SK : re-plan minimal change
+    activate SK
+    SK -> SPEC : implement + verify
+    deactivate SK
+    alt any gate got worse
+      AG -> AG : revert round (regression guard)
+    end
+  end
+
+  AG -> MEM : update convergence-state.md\n+ next-round signal
+  deactivate AG
+end
+
+CMD --> DEV : **CONVERGED** — all gates pass
+deactivate CMD
+
+note right of CMD
+  Repetition is delegated to a native
+  driver (/loop or ScheduleWakeup).
+  `/converge --resume` runs exactly
+  one idempotent round.
+end note
+
+@enduml

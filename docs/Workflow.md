@@ -4,6 +4,10 @@ This document defines the active PRD-to-delivery workflow for this repository.
 
 The workflow is designed for AI-assisted implementation, but it is intentionally structured so that humans can review each stage without reconstructing the entire reasoning chain.
 
+> **Related:** [Pipeline-Components.md](Pipeline-Components.md) documents every agent
+> and skill in detail (inputs, outputs, boundaries, escalation).
+> [diagrams/](diagrams/) holds the PlantUML flow and sequence diagrams.
+
 ## 1. Primary Goal
 
 The repository should be able to start from one product requirements document and move through architecture, implementation planning, coding, testing, and acceptance with explicit handoffs and low design drift.

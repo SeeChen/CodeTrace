@@ -1,6 +1,6 @@
 # Rule 2: Branch Protection Rules
 
-This rule defines the protection rules for branches in the CodeTrace-AI repository.
+This rule defines the protection rules for branches in the CodeTrace repository.
 
 ## Main Branch Protection
 

@@ -1,6 +1,6 @@
 # Rule 7: Branch Selection Before Work
 
-This rule defines how AI agents should choose a branch before starting a task in the CodeTrace-AI repository.
+This rule defines how AI agents should choose a branch before starting a task in the CodeTrace repository.
 
 ## Purpose
 
